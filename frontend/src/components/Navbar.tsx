@@ -99,7 +99,7 @@ export default function Navbar() {
                 <div
                   role="menu"
                   aria-labelledby="user-menu-button"
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-10)]"
+                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
                 >
                   <a
                     id="user-menu-item-0"
