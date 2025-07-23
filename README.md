@@ -4,8 +4,6 @@ A modern web application that allows users to explore and search for books using
 
 **Live Site:** [https://readoo-eight.vercel.app/](https://readoo-eight.vercel.app/)
 
----
-
 ## Features
 
 - **Search by Book Title or Author**
@@ -15,8 +13,6 @@ A modern web application that allows users to explore and search for books using
 - **Debounced Input** (prevents excessive API calls)
 - **Accurate Result Count**
 - **Responsive Design**
-
----
 
 ## Tech Stack
 
