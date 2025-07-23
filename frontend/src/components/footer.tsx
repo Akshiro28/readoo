@@ -10,7 +10,7 @@ export default function Footer() {
             <div className="h-full text-sm font-medium flex flex-1 items-center justify-center sm:justify-between">
               <p>© 2025 <a href="https://github.com/Akshiro28" target="_blank" rel="noopener noreferrer" className="hover:underline">Akshiro</a>. All Rights Reserved.</p>
 
-              <p>View project on <a href="https://github.com/Akshiro28/readoo" className="hover:underline" target="_blank" rel="noopener noreferrer">GitHub →</a></p>
+              <a href="https://github.com/Akshiro28/readoo" className="hover:underline" target="_blank" rel="noopener noreferrer">View project on GitHub →</a>
             </div>
 
           </div>
