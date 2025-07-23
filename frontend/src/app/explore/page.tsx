@@ -2,8 +2,23 @@
 import { useEffect, useState } from "react";
 import BookCard from "../../components/BookCard";
 
+// Type for the items from Google Books API
+type BookItem = {
+  id: string;
+  volumeInfo: {
+    title?: string;
+    authors?: string[];
+    publishedDate?: string;
+    description?: string;
+    imageLinks?: {
+      thumbnail?: string;
+      smallThumbnail?: string;
+    };
+  };
+};
+
 export default function Explore() {
-  const [books, setBooks] = useState<any[]>([]);
+  const [books, setBooks] = useState<BookItem[]>([]);
   const [query, setQuery] = useState("");
   const [author, setAuthor] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState(query);
@@ -42,8 +57,8 @@ export default function Explore() {
         const data = await res.json();
 
         const uniqueBooks = Array.from(
-          new Map((data.items || []).map((item: any) => [item.id, item])).values()
-        );
+          new Map((data.items || []).map((item: BookItem) => [item.id, item])).values()
+        ) as BookItem[];
 
         setBooks(uniqueBooks);
       } catch (err) {
@@ -59,7 +74,7 @@ export default function Explore() {
 
   const filteredBooks = books.filter((item) => {
     const info = item.volumeInfo || {};
-    const year = parseInt(info.publishedDate?.slice(0, 4));
+    const year = parseInt(info.publishedDate?.slice(0, 4) || "");
     if (!year || isNaN(year)) return false;
     if (minYear && year < minYear) return false;
     if (maxYear && year > maxYear) return false;
