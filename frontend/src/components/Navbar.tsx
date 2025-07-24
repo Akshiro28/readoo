@@ -28,10 +28,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] sticky top-0 backdrop-blur-md mb-16">
+    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] sticky top-0 backdrop-blur-md mb-16 z-40">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <div className="relative flex h-16 justify-between">
+          <div className="absolute inset-y-0 left-0 flex sm:hidden">
             <button
               type="button"
               aria-controls="mobile-menu"
@@ -52,7 +52,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="h-full flex flex-1 items-center justify-center sm:justify-start">
+          <div className="flex flex-1 items-center justify-center sm:justify-start">
             <div className="flex shrink-0 items-center">
               <img
                 src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
@@ -60,16 +60,16 @@ export default function Navbar() {
                 className="h-8 w-auto"
               />
             </div>
-            <div className="hidden sm:ml-6 sm:block h-full">
-              <div className="h-full flex space-x-6 items-center">
+            <div className="hidden sm:ml-6 sm:block">
+              <div className="flex space-x-4">
                 {links.map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`flex h-full items-center px-1 py-2 text-sm border-b-2 ${
+                    className={`flex px-3 py-2 text-sm rounded ${
                       pathname === link.path
-                        ? "text-gray-800 border-sky-800"
-                        : "text-gray-400 border-white hover:text-gray-500 hover:border-gray-300"
+                        ? "text-gray-800"
+                        : "text-gray-400 border-white hover:text-gray-800"
                     }`}
                   >
                     {link.name}
@@ -99,7 +99,7 @@ export default function Navbar() {
                 <div
                   role="menu"
                   aria-labelledby="user-menu-button"
-                  className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
+                  className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
                 >
                   <a
                     id="user-menu-item-0"

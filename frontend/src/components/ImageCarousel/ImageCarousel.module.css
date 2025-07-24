@@ -1,0 +1,95 @@
+.carouselWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: calc(100vh - 258px);
+  margin: 0 auto;
+  border-radius: 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.slideWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-color);
+  height: calc(100vh - 258px);
+  padding: 0 3rem;
+  position: relative;
+}
+
+.image {
+  flex: 1;
+  max-width: 50%;
+  height: auto;
+  object-fit: contain;
+}
+
+.overlayGroup {
+  flex: 1;
+  color: var(--color-gray-800);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  padding-right: 2rem;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.indicators {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot,
+.selectedDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-gray-300);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.selectedDot {
+  background-color: var(--color-gray-800);
+}
+
+@media (max-width: 768px) {
+  .slideWrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .overlayGroup {
+    padding: 1rem 0;
+  }
+
+  .image {
+    max-width: 80%;
+  }
+}
