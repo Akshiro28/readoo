@@ -7,7 +7,6 @@
 .carouselContainer {
   position: relative;
   width: 100%;
-  height: 100%;
   height: calc(100vh - 258px);
   margin: 0 auto;
   border-radius: 2rem;
@@ -17,7 +16,6 @@
 }
 
 .slideWrapper {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,13 +25,6 @@
   position: relative;
 }
 
-.image {
-  flex: 1;
-  max-width: 50%;
-  height: auto;
-  object-fit: contain;
-}
-
 .overlayGroup {
   flex: 1;
   color: var(--color-gray-800);
@@ -41,10 +32,8 @@
   flex-direction: column;
   gap: 1rem;
   text-align: left;
+  z-index: 2;
   position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
   padding-right: 2rem;
 }
 
@@ -56,6 +45,17 @@
 .text {
   font-size: 1.2rem;
   font-weight: normal;
+}
+
+.imageContainer {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  max-width: 50%;
+}
+
+.image {
+  object-fit: contain;
 }
 
 .indicators {
@@ -84,13 +84,16 @@
   .slideWrapper {
     flex-direction: column;
     text-align: center;
+    padding: 2rem 1rem;
   }
 
   .overlayGroup {
     padding: 1rem 0;
   }
 
-  .image {
-    max-width: 80%;
+  .imageContainer {
+    max-width: 100%;
+    height: 250px;
+    margin-top: 1rem;
   }
 }

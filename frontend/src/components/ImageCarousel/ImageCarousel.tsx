@@ -4,6 +4,7 @@ import React, { useState, ReactNode } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./ImageCarousel.module.css";
+import Image from "next/image";
 
 interface Slide {
   image: string;
@@ -46,7 +47,16 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
                   {slide.text && <div className={styles.text}>{slide.text}</div>}
                 </div>
               )}
-              <img src={slide.image} alt={`Slide ${idx + 1}`} className={styles.image} />
+
+              <div className={styles.imageContainer}>
+                <Image
+                  src={slide.image}
+                  alt={`Slide ${idx + 1}`}
+                  className={styles.image}
+                  fill
+                  priority={idx === 0}
+                />
+              </div>
             </div>
           ))}
         </Carousel>

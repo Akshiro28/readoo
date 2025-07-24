@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -53,13 +54,16 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-1 items-center justify-center sm:justify-start">
-            <a href="/" className="flex shrink-0 items-center">
-              <img
+            <Link href="/" className="flex shrink-0 items-center">
+              <Image
                 src="/images/logo-full.png"
                 alt="Readoo"
+                width={120}
+                height={32}
                 className="h-8 w-auto"
+                priority
               />
-            </a>
+            </Link>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {links.map((link) => (
