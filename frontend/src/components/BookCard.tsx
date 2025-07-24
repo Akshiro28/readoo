@@ -35,8 +35,8 @@ export default function BookCard({ book }: { book: BookItem }) {
           className="object-cover rounded-md"
         />
       </div>
-      <h3 className="text-md font-semibold mb-1">{volumeInfo.title}</h3>
-      <p className="text-xs text-gray-400 mb-1">
+      <h3 className="text-md font-semibold mb-1 leading-tight">{volumeInfo.title}</h3>
+      <p className="text-xs text-gray-400 mb-1 leading-tight">
         {volumeInfo.authors?.join(", ") || "Unknown Author"}
       </p>
       <p className="text-xs text-gray-400">{year}</p>
