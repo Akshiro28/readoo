@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import styles from "./ImageCarousel.module.css";
@@ -8,7 +8,7 @@ import styles from "./ImageCarousel.module.css";
 interface Slide {
   image: string;
   heading?: string;
-  text?: string;
+  text?: string | ReactNode;
   color?: string;
 }
 

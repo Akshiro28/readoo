@@ -53,13 +53,13 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-1 items-center justify-center sm:justify-start">
-            <div className="flex shrink-0 items-center">
+            <a href="/" className="flex shrink-0 items-center">
               <img
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                src="/images/logo-full.png"
                 alt="Readoo"
                 className="h-8 w-auto"
               />
-            </div>
+            </a>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {links.map((link) => (

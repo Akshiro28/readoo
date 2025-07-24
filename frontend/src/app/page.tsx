@@ -10,6 +10,11 @@ const slides = [
   {
     image: "/carousel/slide2.png",
     heading: "Explore Top Books",
+    text: (
+      <>
+        Button here
+      </>
+    ),
     color: "#e0f7fa",
   },
   {
