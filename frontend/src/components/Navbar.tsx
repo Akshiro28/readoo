@@ -92,10 +92,12 @@ export default function Navbar() {
                 className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 cursor-pointer"
               >
                 <span className="sr-only">Open user menu</span>
-                <img
-                  className="size-8 rounded-full"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
-                  alt=""
+                <Image
+                  className="rounded-full"
+                  src="/images/person-placeholder.png"
+                  alt="User Avatar"
+                  width={32}
+                  height={32}
                 />
               </button>
 
