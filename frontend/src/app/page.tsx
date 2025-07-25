@@ -96,7 +96,7 @@ export default function Home() {
             Curate your personal books list
           </h2>
           <p className="mb-4">
-            Track books you've read, save favourites, and curate your own library.
+            Track books you&apos;ve read, save favourites, and curate your own library.
           </p>
           <Link href="/mybooks" className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800">
             MyBooks →
