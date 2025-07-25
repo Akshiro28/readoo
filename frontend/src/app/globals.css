@@ -31,3 +31,22 @@
   --background: rgb(var(--background-rgb));
   --background-90: rgba(var(--background-rgb), 0.9);
 }
+
+@keyframes ping-pong-scroll-ball {
+  0% {
+    transform: translateY(0);
+  }
+  5% {
+    transform: translateY(0);
+  }
+  95% {
+    transform: translateY(22px);
+  }
+  100% {
+    transform: translateY(22px);
+  }
+}
+
+.scroll-down-ball {
+  animation: ping-pong-scroll-ball 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+}

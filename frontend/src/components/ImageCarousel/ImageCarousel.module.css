@@ -21,7 +21,7 @@
   justify-content: space-between;
   background-color: var(--bg-color);
   height: calc(100vh - 258px);
-  padding: 0 3rem;
+  padding-left: 4rem;
   position: relative;
 }
 
@@ -34,7 +34,6 @@
   text-align: left;
   z-index: 2;
   position: relative;
-  padding-right: 2rem;
 }
 
 .heading {

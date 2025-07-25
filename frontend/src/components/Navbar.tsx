@@ -15,7 +15,7 @@ export default function Navbar() {
   const links = [
     { name: "Dashboard", path: "/" },
     { name: "Explore", path: "/explore" },
-    { name: "Projects", path: "/projects" },
+    { name: "MyBooks", path: "/mybooks" },
   ];
 
   useEffect(() => {
