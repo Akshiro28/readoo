@@ -4,10 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signInWithGoogle, logOut } from "../firebase/auth";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Navbar() {
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, loading } = useAuth();
   const menuRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
@@ -85,56 +88,83 @@ export default function Navbar() {
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3" ref={menuRef}>
-              <button
-                id="user-menu-button"
-                type="button"
-                onClick={() => setUserMenuOpen(prev => !prev)}
-                className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 cursor-pointer"
-              >
-                <span className="sr-only">Open user menu</span>
-                <Image
-                  className="rounded-full"
-                  src="/images/person-placeholder.png"
-                  alt="User Avatar"
-                  width={32}
-                  height={32}
-                />
-              </button>
+              {/* If loading, you could show a skeleton or nothing */}
+              {loading ? null : user ? (
+                <>
+                  {/* Logged-in avatar button */}
+                  <button
+                    id="user-menu-button"
+                    type="button"
+                    onClick={() => setUserMenuOpen(prev => !prev)}
+                    className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 cursor-pointer"
+                  >
+                    <span className="sr-only">Open user menu</span>
+                    <Image
+                      className="rounded-full object-cover"
+                      src={user.photoURL || "/images/person-placeholder.png"}
+                      alt="User Avatar"
+                      width={32}
+                      height={32}
+                    />
+                  </button>
 
-              {isUserMenuOpen && (
-                <div
-                  role="menu"
-                  aria-labelledby="user-menu-button"
-                  className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
+                  {/* Dropdown menu */}
+                  {isUserMenuOpen && (
+                    <div
+                      role="menu"
+                      aria-labelledby="user-menu-button"
+                      className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
+                    >
+                      <a
+                        id="user-menu-item-0"
+                        role="menuitem"
+                        href="#"
+                        tabIndex={0}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        MyBooks
+                      </a>
+                      <a
+                        id="user-menu-item-1"
+                        role="menuitem"
+                        href="#"
+                        tabIndex={0}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        Settings
+                      </a>
+                      <button
+                        id="user-menu-item-2"
+                        role="menuitem"
+                        tabIndex={0}
+                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          logOut();
+                          setUserMenuOpen(false);
+                        }}
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  )}
+                </>
+              ) : (
+                // Logged-out: show sign-in button
+                <button
+                  onClick={signInWithGoogle}
+                  className="flex items-center gap-2 ps-3 pe-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 cursor-pointer"
                 >
-                  <a
-                    id="user-menu-item-0"
-                    role="menuitem"
-                    href="#"
-                    tabIndex={0}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Your Profile
-                  </a>
-                  <a
-                    id="user-menu-item-1"
-                    role="menuitem"
-                    href="#"
-                    tabIndex={0}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Settings
-                  </a>
-                  <a
-                    id="user-menu-item-2"
-                    role="menuitem"
-                    href="#"
-                    tabIndex={0}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    Sign out
-                  </a>
-                </div>
+                  <Image
+                    src="/images/person-placeholder.png"
+                    alt="Default Avatar"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
+                  Sign in
+                </button>
               )}
             </div>
           </div>
