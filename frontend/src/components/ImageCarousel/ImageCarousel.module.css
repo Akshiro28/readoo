@@ -7,7 +7,6 @@
 .carouselContainer {
   position: relative;
   width: 100%;
-  height: calc(100vh - 258px);
   margin: 0 auto;
   border-radius: 2rem;
   overflow: hidden;
@@ -21,6 +20,7 @@
   justify-content: space-between;
   background-color: var(--bg-color);
   height: calc(100vh - 258px);
+  min-height: 280px;
   padding-left: 4rem;
   position: relative;
 }
