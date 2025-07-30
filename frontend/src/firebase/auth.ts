@@ -12,6 +12,7 @@ export const signInWithGoogle = async () => {
 
     const token = await user.getIdToken();
 
+    console.log("API URL from env:", process.env.NEXT_PUBLIC_API_URL);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/save-user`, {
       method: "POST",
       headers: {
