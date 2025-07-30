@@ -3,6 +3,7 @@ import { firebaseApp } from "./config";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
+const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
 export const signInWithGoogle = async () => {
   try {
@@ -11,7 +12,7 @@ export const signInWithGoogle = async () => {
 
     const token = await user.getIdToken();
 
-    await fetch("http://localhost:3001/api/save-user", {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/save-user`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,3 +34,4 @@ export const signInWithGoogle = async () => {
 export const logOut = () => signOut(auth);
 
 export { auth };
+
