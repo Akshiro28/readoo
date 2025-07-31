@@ -2,8 +2,10 @@
 import Image from "next/image";
 import { useAuth } from "../hooks/useAuth";
 import { Check, Heart, Bookmark } from "lucide-react";
+import { getIdToken } from "firebase/auth";
+import { auth } from "../firebase/auth";
 
-export type BookItem = {
+export type BookType = {
   id: string;
   volumeInfo: {
     title?: string;
@@ -17,7 +19,7 @@ export type BookItem = {
   };
 };
 
-export default function BookCard({ book }: { book: BookItem }) {
+export default function BookCard({ book }: { book: BookType }) {
   const volumeInfo = book.volumeInfo;
   const thumbnail = volumeInfo.imageLinks?.thumbnail;
   const year = volumeInfo.publishedDate?.substring(0, 4);
@@ -26,6 +28,34 @@ export default function BookCard({ book }: { book: BookItem }) {
   const image = thumbnail
     ? thumbnail.replace("&zoom=1", "&zoom=2").replace("http:", "https:")
     : "/images/book-cover-placeholder.png";
+
+  async function handleMarkAs(statusKey: "read" | "favorite" | "wishlist", book: BookType) {
+    try {
+      const token = await getIdToken(auth.currentUser!, true);
+      const res = await fetch("/api/user-books", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          bookId: book.id, // or book.volumeInfo.id
+          statusKey,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Failed to mark book:", data.error);
+        return;
+      }
+
+      console.log(`Marked as ${statusKey}`);
+    } catch (err) {
+      console.error("Error marking book:", err);
+    }
+  }
 
   return (
     <div className="rounded group">
