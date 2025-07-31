@@ -3,7 +3,6 @@ import { firebaseApp } from "./config";
 
 const auth = getAuth(firebaseApp);
 const provider = new GoogleAuthProvider();
-const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
 export const signInWithGoogle = async () => {
   try {

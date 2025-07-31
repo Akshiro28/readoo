@@ -23,7 +23,7 @@ export default function BookCard({ book }: { book: BookType }) {
   const volumeInfo = book.volumeInfo;
   const thumbnail = volumeInfo.imageLinks?.thumbnail;
   const year = volumeInfo.publishedDate?.substring(0, 4);
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   const image = thumbnail
     ? thumbnail.replace("&zoom=1", "&zoom=2").replace("http:", "https:")

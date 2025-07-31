@@ -1,5 +1,5 @@
 import { getAuth } from "firebase-admin/auth";
-import { getApp, getApps, initializeApp, cert } from "firebase-admin/app";
+import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { MongoClient } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 

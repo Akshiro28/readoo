@@ -37,8 +37,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
 
     return res.status(200).json({ message: 'User saved', result });
-  } catch (err: any) {
-    console.error(err);
-    return res.status(401).json({ error: err.message || 'Unauthorized' });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(err);
+      return res.status(401).json({ error: err.message });
+    }
+
+    console.error('Unexpected error', err);
+    return res.status(500).json({ error: 'Unexpected error' });
   }
 }
