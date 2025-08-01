@@ -1,19 +1,18 @@
 import admin from 'firebase-admin';
-import type { NextApiRequest } from 'next';
+import type { NextRequest } from 'next/server';
 
 const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT_JSON || '{}'
 );
 
-// Initialize Firebase Admin SDK only once
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
   });
 }
 
-export async function authenticate(req: NextApiRequest) {
-  const authHeader = req.headers.authorization || '';
+export async function authenticate(req: NextRequest) {
+  const authHeader = req.headers.get('authorization') || '';
   const token = authHeader.replace('Bearer ', '');
 
   if (!token) {

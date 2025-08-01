@@ -1,7 +1,7 @@
 import { getAuth } from "firebase-admin/auth";
 import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { MongoClient } from "mongodb";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 if (!getApps().length) {
   initializeApp({
@@ -13,41 +13,30 @@ if (!getApps().length) {
   });
 }
 
-const client = new MongoClient(process.env.MONGODB_URI!);
 const dbName = process.env.MONGODB_DB_NAME || "readoo";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<void> {
-  if (req.method !== "POST") {
-    res.status(405).json({ error: "Method Not Allowed" });
-    return;
-  }
-
-  const authHeader = req.headers.authorization || "";
+// POST handler
+export async function POST(req: NextRequest) {
+  const authHeader = req.headers.get("authorization") || "";
   const token = authHeader.startsWith("Bearer ")
     ? authHeader.split(" ")[1]
     : null;
 
   if (!token) {
-    res.status(401).json({ error: "Missing token" });
-    return;
+    return NextResponse.json({ error: "Missing token" }, { status: 401 });
   }
 
   try {
     const decoded = await getAuth().verifyIdToken(token);
     const uid = decoded.uid;
-    const { bookId, statusKey } = req.body as {
-      bookId: string;
-      statusKey: "read" | "favorite" | "wishlist";
-    };
+
+    const { bookId, statusKey } = await req.json();
 
     if (!bookId || !["read", "favorite", "wishlist"].includes(statusKey)) {
-      res.status(400).json({ error: "Invalid request body" });
-      return;
+      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
     }
 
+    const client = new MongoClient(process.env.MONGODB_URI!);
     await client.connect();
     const db = client.db(dbName);
     const collection = db.collection("user_books");
@@ -60,11 +49,10 @@ export default async function handler(
 
     await collection.updateOne(filter, update, options);
 
-    res.status(200).json({ message: "Book status updated" });
+    return NextResponse.json({ message: "Book status updated" });
   } catch (err) {
     console.error("Error in /api/user-books:", err);
-    res.status(500).json({ error: "Internal Server Error" });
-  } finally {
-    await client.close();
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
