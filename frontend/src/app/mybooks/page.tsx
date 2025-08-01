@@ -19,6 +19,15 @@ type BookType = {
   };
 };
 
+type BookEntry = {
+  bookId: string;
+  status: {
+    read?: boolean;
+    favorite?: boolean;
+    wishlist?: boolean;
+  };
+};
+
 type BookWithStatus = BookType & {
   status: {
     read?: boolean;
@@ -50,7 +59,7 @@ export default function MyBooksPage() {
         const data = await res.json();
 
         const bookDetails = await Promise.all(
-          data.map(async (entry: any) => {
+          data.map(async (entry: BookEntry) => {
             try {
               const res = await fetch(`https://www.googleapis.com/books/v1/volumes/${entry.bookId}`);
               const json = await res.json();
@@ -132,7 +141,7 @@ export default function MyBooksPage() {
             {["all", "read", "favorite", "wishlist"].map((status) => (
               <button
                 key={status}
-                onClick={() => setStatusFilter(status as any)}
+                onClick={() => setStatusFilter(status as "all" | "read" | "favorite" | "wishlist")}
                 className={`px-4 py-2 text-sm rounded-md border border-sky-700 text-sky-700 cursor-pointer transition ${
 statusFilter === status
 ? "bg-sky-700 text-white"
