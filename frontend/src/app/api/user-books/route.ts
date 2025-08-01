@@ -19,14 +19,15 @@ const MONGODB_URI = process.env.MONGODB_URI!;
 const dbName = process.env.MONGODB_DB_NAME || "readoo";
 
 // You can use a global MongoClient across hot reloads in dev
-const globalForMongo = global as any;
-let client: MongoClient;
+const globalForMongo = global as typeof globalThis & {
+  mongoClient?: MongoClient;
+};
 
 if (!globalForMongo.mongoClient) {
   globalForMongo.mongoClient = new MongoClient(MONGODB_URI);
 }
-client = globalForMongo.mongoClient;
 
+const client = globalForMongo.mongoClient;
 // ---------- POST /api/user-books ----------
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
@@ -65,12 +66,28 @@ export async function POST(req: NextRequest) {
 
     await collection.updateOne(filter, update, { upsert: true });
 
+    // ⬇️ Check if all status values are false
+    const updatedDoc = await collection.findOne(filter);
+    const allFalse =
+      !updatedDoc?.status?.read &&
+        !updatedDoc?.status?.favorite &&
+        !updatedDoc?.status?.wishlist;
+
+    if (allFalse) {
+      await collection.deleteOne(filter);
+      return NextResponse.json({
+        message: `${statusKey} unmarked — all statuses false, entry removed`,
+        deleted: true,
+      });
+    }
+
     return NextResponse.json({
       message: isMarked ? `${statusKey} unmarked` : `${statusKey} marked`,
       newStatus: !isMarked,
     });
-  } catch (err: any) {
-    console.error("🔥 Error in POST /api/user-books:", err.message || err);
+  } catch (err: unknown) {
+    const error = err instanceof Error ? err.message : String(err);
+    console.error("🔥 Error in POST /api/user-books:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
@@ -107,8 +124,9 @@ export async function GET(req: NextRequest) {
     };
 
     return NextResponse.json({ status });
-  } catch (err: any) {
-    console.error("🔥 Error in GET /api/user-books:", err.message || err);
+  } catch (err: unknown) {
+    const error = err instanceof Error ? err.message : String(err);
+    console.error("🔥 Error in GET /api/user-books:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
