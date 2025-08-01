@@ -52,14 +52,12 @@ export default function Home() {
       <div className="mt-24 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
         <div className="p-16">
           <div className="space-y-2">
-            {/* top lines */}
             {Array(2).fill(null).map((_, idx) => (
               <div key={`bottom-line-${idx}`} className="flex items-center h-8">
                 <div className="w-full border-t border-[var(--foreground-15)]" />
               </div>
             ))}
 
-            {/* text lines with side borders */}
             {["Explore", "Your", "Next", "Read"].map((line, idx) => (
               <div key={idx} className="flex items-center h-8">
                 <div className="basis-[16%] border-t border-[var(--foreground-15)]" />
@@ -68,7 +66,6 @@ export default function Home() {
               </div>
             ))}
 
-            {/* bottom lines */}
             {Array(5).fill(null).map((_, idx) => (
               <div key={`bottom-line-${idx}`} className="flex items-center h-8">
                 <div className="w-full border-t border-[var(--foreground-15)]" />

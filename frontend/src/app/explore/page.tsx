@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import BookCard from "../../components/BookCard";
 
-// Type for the items from Google Books API
 type BookItem = {
   id: string;
   volumeInfo: {
@@ -83,28 +82,27 @@ export default function Explore() {
 
   return (
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-      <h1 className="text-4xl font-bold mb-8">Explore Books</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">Explore Books</h1>
 
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full p-2 mb-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
-        placeholder="Search by title or keyword..."
-      />
-
-      <div className="flex flex-col md:flex-row gap-2 mb-8">
+      <div className="flex flex-col md:flex-row gap-2 mb-8 justify-center">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          placeholder="Search by title or keyword..."
+        />
         <input
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Search by author"
-          className="w-full p-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
         />
         <input
           type="number"
           placeholder="Min year"
-          className="w-full p-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
           onChange={(e) =>
             setMinYear(e.target.value ? parseInt(e.target.value) : null)
           }
@@ -112,7 +110,7 @@ export default function Explore() {
         <input
           type="number"
           placeholder="Max year"
-          className="w-full p-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
           onChange={(e) =>
             setMaxYear(e.target.value ? parseInt(e.target.value) : null)
           }
@@ -129,7 +127,7 @@ export default function Explore() {
       )}
 
       {!loading && books.length === 0 && (
-        <p className="mb-8 text-sm text-gray-400">No books found.</p>
+        <p className="mb-8 text-sm text-gray-400 text-center">No books found.</p>
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
@@ -140,3 +138,4 @@ export default function Explore() {
     </main>
   );
 }
+

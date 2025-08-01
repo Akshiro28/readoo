@@ -3,7 +3,6 @@ import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-// ---------- FIREBASE ADMIN SETUP ----------
 if (!getApps().length) {
   initializeApp({
     credential: cert({
@@ -14,7 +13,6 @@ if (!getApps().length) {
   });
 }
 
-// ---------- MONGODB SETUP ----------
 const MONGODB_URI = process.env.MONGODB_URI!;
 const dbName = process.env.MONGODB_DB_NAME || "readoo";
 
@@ -28,7 +26,7 @@ if (!globalForMongo.mongoClient) {
 }
 
 const client = globalForMongo.mongoClient;
-// ---------- POST /api/user-books ----------
+
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
   const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
@@ -66,7 +64,6 @@ export async function POST(req: NextRequest) {
 
     await collection.updateOne(filter, update, { upsert: true });
 
-    // ⬇️ Check if all status values are false
     const updatedDoc = await collection.findOne(filter);
     const allFalse =
       !updatedDoc?.status?.read &&
@@ -87,12 +84,11 @@ export async function POST(req: NextRequest) {
     });
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
-    console.error("🔥 Error in POST /api/user-books:", error);
+    console.error("Error in POST /api/user-books:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
-// ---------- GET /api/user-books?bookId=xyz ----------
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
   const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
@@ -126,7 +122,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ status });
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
-    console.error("🔥 Error in GET /api/user-books:", error);
+    console.error("Error in GET /api/user-books:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

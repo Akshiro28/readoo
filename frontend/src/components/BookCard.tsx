@@ -83,7 +83,7 @@ export default function BookCard({ book }: { book: BookType }) {
         body: JSON.stringify({
           bookId: book.id,
           statusKey: key,
-          value: !status[key], // toggle
+          value: !status[key],
         }),
       });
 

@@ -10,7 +10,7 @@ import { useAuth } from "../hooks/useAuth";
 export default function Navbar() {
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   const menuRef = useRef<HTMLDivElement>(null);
 
   const pathname = usePathname();
@@ -88,10 +88,8 @@ pathname === link.path
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <div className="relative ml-3" ref={menuRef}>
-              {/* If loading, you could show a skeleton or nothing */}
-              {loading ? null : user ? (
+              {user ? (
                 <>
-                  {/* Logged-in avatar button */}
                   <button
                     id="user-menu-button"
                     type="button"
@@ -108,7 +106,6 @@ pathname === link.path
                     />
                   </button>
 
-                  {/* Dropdown menu */}
                   {isUserMenuOpen && (
                     <div
                       role="menu"
@@ -124,16 +121,6 @@ pathname === link.path
                         onClick={() => setUserMenuOpen(false)}
                       >
                         MyBooks
-                      </a>
-                      <a
-                        id="user-menu-item-1"
-                        role="menuitem"
-                        href="#"
-                        tabIndex={0}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setUserMenuOpen(false)}
-                      >
-                        Settings
                       </a>
                       <button
                         id="user-menu-item-2"
@@ -151,7 +138,7 @@ pathname === link.path
                   )}
                 </>
               ) : (
-                  // Logged-out: show sign-in button
+                  // logged-out
                   <button
                     onClick={signInWithGoogle}
                     className="flex items-center gap-2 ps-3 pe-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 cursor-pointer"

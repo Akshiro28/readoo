@@ -3,7 +3,6 @@ import { getApps, initializeApp, cert } from "firebase-admin/app";
 import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-// Firebase Admin Init
 if (!getApps().length) {
   initializeApp({
     credential: cert({
@@ -14,7 +13,6 @@ if (!getApps().length) {
   });
 }
 
-// MongoDB Setup
 const MONGODB_URI = process.env.MONGODB_URI!;
 const dbName = process.env.MONGODB_DB_NAME || "readoo";
 const globalForMongo = global as typeof globalThis & { mongoClient?: MongoClient };
@@ -55,7 +53,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(docs);
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
-    console.error("🔥 Error in GET /api/my-books:", error);
+    console.error("Error in GET /api/my-books:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
