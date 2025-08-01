@@ -1,7 +1,9 @@
 "use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { Check, Heart, Bookmark } from "lucide-react";
+import { CircleCheck, Heart, Bookmark } from "lucide-react";
 import { getIdToken } from "firebase/auth";
 import { auth } from "../firebase/auth";
 
@@ -19,19 +21,59 @@ export type BookType = {
   };
 };
 
+type StatusType = {
+  read: boolean;
+  favorite: boolean;
+  wishlist: boolean;
+};
+
 export default function BookCard({ book }: { book: BookType }) {
   const volumeInfo = book.volumeInfo;
-  const thumbnail = volumeInfo.imageLinks?.thumbnail;
-  const year = volumeInfo.publishedDate?.substring(0, 4);
   const { user } = useAuth();
+  const [status, setStatus] = useState<StatusType>({
+    read: false,
+    favorite: false,
+    wishlist: false,
+  });
 
-  const image = thumbnail
-    ? thumbnail.replace("&zoom=1", "&zoom=2").replace("http:", "https:")
+  const year = volumeInfo.publishedDate?.substring(0, 4) || "Unknown Year";
+  const image = volumeInfo.imageLinks?.thumbnail
+    ? volumeInfo.imageLinks.thumbnail.replace("&zoom=1", "&zoom=2").replace("http:", "https:")
     : "/images/book-cover-placeholder.png";
 
-  async function handleMarkAs(statusKey: "read" | "favorite" | "wishlist", book: BookType) {
+  useEffect(() => {
+    if (!user || !auth.currentUser) return;
+
+    const fetchStatus = async () => {
+      try {
+        const token = await getIdToken(auth.currentUser!, true);
+        const res = await fetch(`/api/user-books?bookId=${book.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data?.status) {
+            setStatus(data.status);
+          }
+        } else {
+          console.error("Failed to fetch book status");
+        }
+      } catch (error) {
+        console.error("Error fetching status:", error);
+      }
+    };
+
+    fetchStatus();
+  }, [user, book.id]);
+
+  async function handleMarkAs(key: keyof StatusType) {
+    if (!user || !auth.currentUser) return;
+
     try {
-      const token = await getIdToken(auth.currentUser!, true);
+      const token = await getIdToken(auth.currentUser, true);
       const res = await fetch("/api/user-books", {
         method: "POST",
         headers: {
@@ -39,21 +81,20 @@ export default function BookCard({ book }: { book: BookType }) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          bookId: book.id, // or book.volumeInfo.id
-          statusKey,
+          bookId: book.id,
+          statusKey: key,
+          value: !status[key], // toggle
         }),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        console.error("Failed to mark book:", data.error);
-        return;
+      if (res.ok) {
+        setStatus((prev) => ({ ...prev, [key]: !prev[key] }));
+      } else {
+        const data = await res.json();
+        console.error("Error updating status:", data.error);
       }
-
-      console.log(`Marked as ${statusKey}`);
     } catch (err) {
-      console.error("Error marking book:", err);
+      console.error("Failed to update book status:", err);
     }
   }
 
@@ -65,36 +106,53 @@ export default function BookCard({ book }: { book: BookType }) {
           alt={volumeInfo.title || "Book cover"}
           fill
           className="object-cover rounded-md"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 
         {user && (
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <button
-              className="bg-white rounded p-1 shadow-md cursor-pointer"
+              className="bg-white rounded p-1 shadow-md"
               title="Mark as Read"
-              onClick={() => handleMarkAs("read", book)}
+              onClick={() => handleMarkAs("read")}
             >
-              <Check className="w-5 h-5 text-green-600" />
+              <CircleCheck
+                className={`w-5 h-5 ${
+status.read
+? "text-white fill-green-600" // filled green background, white check
+: "text-green-600 fill-none"  // outline only
+}`}
+              />
             </button>
             <button
-              className="bg-white rounded p-1 shadow-md cursor-pointer"
+              className="bg-white rounded p-1 shadow-md"
               title="Add to Favorites"
-              onClick={() => handleMarkAs("favorite", book)}
+              onClick={() => handleMarkAs("favorite")}
             >
-              <Heart className="w-5 h-5 text-red-500" />
+              <Heart
+                className={`w-5 h-5 ${
+status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
+}`}
+              />
             </button>
             <button
-              className="bg-white rounded p-1 shadow-md cursor-pointer"
+              className="bg-white rounded p-1 shadow-md"
               title="Add to Wishlist"
-              onClick={() => handleMarkAs("wishlist", book)}
+              onClick={() => handleMarkAs("wishlist")}
             >
-              <Bookmark className="w-5 h-5 text-blue-500" />
+              <Bookmark
+                className={`w-5 h-5 ${
+status.wishlist ? "text-blue-500 fill-blue-500" : "text-blue-500"
+}`}
+              />
             </button>
           </div>
         )}
       </div>
 
-      <h3 className="text-md font-semibold mb-1 leading-tight">{volumeInfo.title}</h3>
+      <h3 className="text-md font-semibold mb-1 leading-tight">
+        {volumeInfo.title || "Untitled"}
+      </h3>
       <p className="text-xs text-gray-400 mb-1 leading-tight">
         {volumeInfo.authors?.join(", ") || "Unknown Author"}
       </p>
@@ -102,3 +160,4 @@ export default function BookCard({ book }: { book: BookType }) {
     </div>
   );
 }
+
