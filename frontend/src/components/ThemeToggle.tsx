@@ -8,9 +8,9 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    if (stored === "dark" || (!stored && prefersDark)) {
+    // Always default to light unless dark is stored
+    if (stored === "dark") {
       document.documentElement.setAttribute("data-theme", "dark");
       setIsDark(true);
     } else {
@@ -35,9 +35,8 @@ export default function ThemeToggle() {
       {isDark ? (
         <Moon className="w-4 h-4 text-white" />
       ) : (
-          <Sun className="w-4 h-4 text-gray-800" />
-        )}
+        <Sun className="w-4 h-4 text-gray-800" />
+      )}
     </button>
   );
 }
-
