@@ -101,7 +101,7 @@ export default function BookCard({ book }: { book: BookType }) {
   return (
     <div className="rounded group">
       <div className="relative w-full aspect-[2/3] mb-3 rounded-md overflow-hidden">
-        {user && (
+        {user && (status.read || status.favorite || status.wishlist) && (
           <div className="absolute top-2.5 left-2.5 flex gap-[4px] z-10 bg-white rounded-full ring-3 ring-white shadow-md">
             {status.read && (
               <span
@@ -135,7 +135,7 @@ export default function BookCard({ book }: { book: BookType }) {
         {user && (
           <div className="absolute top-2 right-2 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <button
-              className="bg-white rounded p-1 shadow-md"
+              className="bg-white rounded p-1 shadow-md cursor-pointer"
               title={status.read ? "Unmark as Read" : "Mark as Read"}
               onClick={() => handleMarkAs("read")}
             >
@@ -149,7 +149,7 @@ status.read
             </button>
 
             <button
-              className="bg-white rounded p-1 shadow-md"
+              className="bg-white rounded p-1 shadow-md cursor-pointer"
               title={status.favorite ? "Remove from Favorites" : "Add to Favorites"}
               onClick={() => handleMarkAs("favorite")}
             >
@@ -161,7 +161,7 @@ status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
             </button>
 
             <button
-              className="bg-white rounded p-1 shadow-md"
+              className="bg-white rounded p-1 shadow-md cursor-pointer"
               title={status.wishlist ? "Remove from Wishlist" : "Add to Wishlist"}
               onClick={() => handleMarkAs("wishlist")}
             >

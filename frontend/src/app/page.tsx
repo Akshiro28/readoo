@@ -87,7 +87,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-49 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
+      <div className="mt-49 mb-49 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
         <div className="p-16">
           <h2 className="text-3xl font-semibold mb-4">
             Curate your personal books list

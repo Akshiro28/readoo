@@ -126,19 +126,19 @@ export default function Explore() {
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold mb-8 text-center">Explore Books</h1>
 
-      <div className="flex flex-col md:flex-row gap-2 mb-8 justify-center">
+      <div className="flex flex-col md:flex-row gap-2 justify-center">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
-          placeholder="Search by title or keyword..."
+          placeholder="Search by title..."
         />
         <input
           type="text"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-          placeholder="Search by author"
+          placeholder="Search by author..."
           className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
         />
         <input
@@ -159,10 +159,10 @@ export default function Explore() {
         />
       </div>
 
-      {loading && <p className="mb-8 text-center">Loading books...</p>}
+      {loading && <p className="my-6 text-center">Loading books...</p>}
 
       {!loading && books.length > 0 && (
-        <p className="mb-4 text-sm text-[var(--foreground-30)] text-center">
+        <p className="my-6 text-sm text-[var(--foreground-30)] text-center">
           {isRecommendation
             ? "Recommended Books"
             : `Showing ${filteredBooks.length} result${filteredBooks.length !== 1 ? "s" : ""}`}
@@ -170,7 +170,7 @@ export default function Explore() {
       )}
 
       {!loading && books.length === 0 && (
-        <p className="mb-8 text-sm text-[var(--foreground-30)] text-center">No books found.</p>
+        <p className="my-6 text-sm text-[var(--foreground-30)] text-center">No books found.</p>
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
