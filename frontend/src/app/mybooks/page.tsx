@@ -191,7 +191,7 @@ statusFilter === status
 
           {books.length === 0 ? (
             <p className="my-6 text-sm text-[var(--color)] text-center">
-              You haven't added any books yet. Start by adding books to your list!
+              You haven&apos;t added any books yet. Start by adding books to your list!
             </p>
           ) : filteredBooks.length === 0 ? (
             <p className="my-6 text-sm text-[var(--color)] text-center">
