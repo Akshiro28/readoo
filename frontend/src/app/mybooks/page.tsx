@@ -43,6 +43,8 @@ export default function MyBooksPage() {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
   const [statusFilter, setStatusFilter] = useState<"all" | "read" | "favorite" | "wishlist">("all");
+  const [minYear, setMinYear] = useState<number | null>(null);
+  const [maxYear, setMaxYear] = useState<number | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -107,14 +109,21 @@ export default function MyBooksPage() {
         (statusFilter === "favorite" && status.favorite) ||
         (statusFilter === "wishlist" && status.wishlist);
 
-    return matchesSearch && matchesStatus;
+    const yearStr = book.volumeInfo?.publishedDate?.slice(0, 4);
+    const year = yearStr ? parseInt(yearStr) : null;
+
+    const matchesYear =
+      (minYear === null || (year !== null && year >= minYear)) &&
+        (maxYear === null || (year !== null && year <= maxYear));
+
+    return matchesSearch && matchesStatus && matchesYear;
   });
 
   return (
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
 
-      {loading && <p className="mb-8">Loading your books...</p>}
+      {loading && <p className="mb-8 text-center">Loading your books...</p>}
 
       {!loading && (
         <>
@@ -135,6 +144,22 @@ export default function MyBooksPage() {
               className="px-4 py-2 border rounded-md w-full md:w-1/3 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
             />
 
+            <input
+              type="number"
+              placeholder="Min year"
+              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              onChange={(e) =>
+                setMinYear(e.target.value ? parseInt(e.target.value) : null)
+              }
+            />
+            <input
+              type="number"
+              placeholder="Max year"
+              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              onChange={(e) =>
+                setMaxYear(e.target.value ? parseInt(e.target.value) : null)
+              }
+            />
           </div>
 
           <div className="flex gap-2 items-center overflow-x-auto justify-center">

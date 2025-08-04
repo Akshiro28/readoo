@@ -10,7 +10,7 @@ export default function RootLayout({
   }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[rgb(var(--background-rgb))]">
         <Navbar />
         <main className="min-h-[calc(100vh-193px)]">
           {children}

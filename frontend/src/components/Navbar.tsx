@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signInWithGoogle, logOut } from "../firebase/auth";
 import { useAuth } from "../hooks/useAuth";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const [isUserMenuOpen, setUserMenuOpen] = useState(false);
@@ -87,6 +88,8 @@ pathname === link.path
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+
+            <ThemeToggle />
             <div className="relative ml-3" ref={menuRef}>
               {user ? (
                 <>
@@ -170,3 +173,4 @@ pathname === link.path
     </nav>
   );
 }
+

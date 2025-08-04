@@ -32,19 +32,24 @@
   --background-90: rgba(var(--background-rgb), 0.9);
 }
 
+[data-theme='dark'] {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 11, 12, 16;
+}
+
 @keyframes ping-pong-scroll-ball {
-  0% {
-    transform: translateY(0);
-  }
-  5% {
-    transform: translateY(0);
-  }
-  95% {
-    transform: translateY(22px);
-  }
-  100% {
-    transform: translateY(22px);
-  }
+0% {
+  transform: translateY(0);
+}
+5% {
+  transform: translateY(0);
+}
+95% {
+  transform: translateY(22px);
+}
+100% {
+  transform: translateY(22px);
+}
 }
 
 .scroll-down-ball {
