@@ -1,5 +1,8 @@
+"use client";
+
 import ImageCarousel from "../components/ImageCarousel/ImageCarousel";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -40,7 +43,28 @@ const slides = [
   },
 ];
 
+type Stats = {
+  totalUsers: number;
+  totalSavedBooks: number;
+  averageBooks: string;
+};
+
 export default function Home() {
+  const [stats, setStats] = useState<Stats | null>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch("/api/stats");
+        const data = await res.json();
+        setStats(data);
+      } catch (error) {
+        console.error("Failed to load stats", error);
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <ImageCarousel slides={slides} />
@@ -103,22 +127,22 @@ export default function Home() {
         <div className="border-l border-[var(--foreground-15)] flex flex-col">
           <div className="p-16 flex-1 flex items-center justify-between text-3xl font-semibold before:content-['→']">
             <div className="text-end">
-              <p>6</p>
-              <p className="text-base">Total registered users</p>
+              <p>{stats?.totalUsers ?? "—"}</p>
+              <p>Total registered users</p>
             </div>
           </div>
 
           <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
             <div className="text-end">
-              <p>37</p>
-              <p className="text-base">Total saved books</p>
+              <p>{stats?.totalSavedBooks ?? "—"}</p>
+              <p>Total saved books</p>
             </div>
           </div>
 
           <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
             <div className="text-end">
-              <p>6.16</p>
-              <p className="text-base">Average number of books saved per user</p>
+              <p>{stats?.averageBooks ?? "—"}</p>
+              <p>Average books per user</p>
             </div>
           </div>
         </div>
