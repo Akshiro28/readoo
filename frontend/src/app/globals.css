@@ -22,10 +22,16 @@
   font-family: Lexend, Arial, sans-serif;
   color: var(--color-gray-800);
 
+  --color: var(--color-gray-800);
+
   --foreground-rgb: 23, 23, 23;
   --foreground: rgb(var(--foreground-rgb));
+  --foreground-07: rgba(var(--foreground-rgb), 0.07);
+  --foreground-10: rgba(var(--foreground-rgb), 0.1);
   --foreground-15: rgba(var(--foreground-rgb), 0.15);
+  --foreground-25: rgba(var(--foreground-rgb), 0.25);
   --foreground-30: rgba(var(--foreground-rgb), 0.3);
+  --foreground-40: rgba(var(--foreground-rgb), 0.4);
 
   --background-rgb: 255, 255, 255;
   --background: rgb(var(--background-rgb));
@@ -35,6 +41,8 @@
 [data-theme='dark'] {
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 11, 12, 16;
+  color: #fff;
+  --color: #fff;
 }
 
 @keyframes ping-pong-scroll-ball {

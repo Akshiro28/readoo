@@ -25,6 +25,7 @@ export default function Explore() {
   const [loading, setLoading] = useState(false);
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
+  const [isRecommendation, setIsRecommendation] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedQuery(query), 500);
@@ -38,17 +39,58 @@ export default function Explore() {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      if (!debouncedQuery && !debouncedAuthor) {
-        setBooks([]);
-        return;
-      }
-
       setLoading(true);
+      setIsRecommendation(false);
+
       try {
-        const queryParts = [];
-        if (debouncedQuery.trim()) queryParts.push(`intitle:${debouncedQuery.trim()}`);
-        if (debouncedAuthor.trim()) queryParts.push(`inauthor:${debouncedAuthor.trim()}`);
-        const finalQuery = queryParts.join("+");
+        let finalQuery = "";
+
+        const hasQuery = debouncedQuery.trim() !== "";
+        const hasAuthor = debouncedAuthor.trim() !== "";
+
+        if (hasQuery || hasAuthor) {
+          const queryParts = [];
+          if (hasQuery) queryParts.push(`intitle:${debouncedQuery.trim()}`);
+          if (hasAuthor) queryParts.push(`inauthor:${debouncedAuthor.trim()}`);
+          finalQuery = queryParts.join("+");
+        } else {
+          const recommendationQueries = [
+            // General & Popular
+            "bestsellers", "trending books", "award winning", "critically acclaimed", "popular reads", "must read", "staff picks",
+
+            // Genres
+            "fiction", "non-fiction", "fantasy", "science fiction", "romance", "mystery", "thriller", "historical fiction", "graphic novel", "young adult", "children's books", "dystopian", "adventure", "horror", "literary fiction",
+
+            // Thematic
+            "self help", "personal development", "motivation", "mindfulness", "mental health", "productivity", "spirituality", "philosophy", "psychology",
+
+            // Academic & Informative
+            "popular science", "biology", "astronomy", "technology", "engineering", "history", "politics", "economics", "business", "finance", "true crime", "education",
+
+            // Niche interests
+            "cookbooks", "travel", "memoir", "biography", "essays", "anthology", "poetry", "art", "music", "photography", "nature", "animals", "parenting", "crafts", "gardening",
+
+            // Cultural / Identity
+            "LGBTQ+", "feminism", "BIPOC authors", "translated literature", "Asian authors", "African literature", "Native American stories",
+
+            // Mood-based
+            "feel good books", "heartbreaking stories", "uplifting reads", "books that make you think", "funny novels", "dark academia",
+
+            // Based on time/events
+            "summer reads", "holiday books", "back to school", "new releases", "classic novels", "books of the year", "2024 favorites",
+
+            // Mixed tags
+            "booktok", "netflix adaptations", "reese's book club", "nyt bestsellers", "goodreads choice awards", "underrated gems"
+          ];
+
+          const getRandomQuery = () => {
+            const randomIndex = Math.floor(Math.random() * recommendationQueries.length);
+            return recommendationQueries[randomIndex];
+          };
+          
+          finalQuery = getRandomQuery();
+          setIsRecommendation(true);
+        }
 
         const res = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(finalQuery)}&maxResults=30`
@@ -89,7 +131,7 @@ export default function Explore() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
           placeholder="Search by title or keyword..."
         />
         <input
@@ -97,12 +139,12 @@ export default function Explore() {
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
           placeholder="Search by author"
-          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-full md:w-1/3 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
         />
         <input
           type="number"
           placeholder="Min year"
-          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
           onChange={(e) =>
             setMinYear(e.target.value ? parseInt(e.target.value) : null)
           }
@@ -110,24 +152,25 @@ export default function Explore() {
         <input
           type="number"
           placeholder="Max year"
-          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
           onChange={(e) =>
             setMaxYear(e.target.value ? parseInt(e.target.value) : null)
           }
         />
       </div>
 
-      {loading && <p className="mb-8">Loading books...</p>}
+      {loading && <p className="mb-8 text-center">Loading books...</p>}
 
       {!loading && books.length > 0 && (
-        <p className="mb-4 text-sm text-gray-400">
-          Search results<br />
-          Showing {filteredBooks.length} books
+        <p className="mb-4 text-sm text-[var(--foreground-30)] text-center">
+          {isRecommendation
+            ? "Recommended Books"
+            : `Showing ${filteredBooks.length} result${filteredBooks.length !== 1 ? "s" : ""}`}
         </p>
       )}
 
       {!loading && books.length === 0 && (
-        <p className="mb-8 text-sm text-gray-400 text-center">No books found.</p>
+        <p className="mb-8 text-sm text-[var(--foreground-30)] text-center">No books found.</p>
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
@@ -138,4 +181,3 @@ export default function Explore() {
     </main>
   );
 }
-

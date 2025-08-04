@@ -123,7 +123,11 @@ export default function MyBooksPage() {
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
 
-      {loading && <p className="mb-8 text-center">Loading your books...</p>}
+      {!user ? (
+        <p className="mb-8 text-center">Sign in to start customizing your own books list!</p>
+      ) : loading ? (
+        <p className="mb-8 text-center">Loading your books...</p>
+      ) : null}    
 
       {!loading && (
         <>
@@ -133,7 +137,7 @@ export default function MyBooksPage() {
               placeholder="Search by title..."
               value={searchTitle}
               onChange={(e) => setSearchTitle(e.target.value)}
-              className="px-4 py-2 border rounded-md w-full md:w-1/3 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              className="px-4 py-2 border rounded-md w-full md:w-1/3 border-[var(--foreground-15)] outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
             />
 
             <input
@@ -141,13 +145,13 @@ export default function MyBooksPage() {
               placeholder="Search by author..."
               value={searchAuthor}
               onChange={(e) => setSearchAuthor(e.target.value)}
-              className="px-4 py-2 border rounded-md w-full md:w-1/3 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              className="px-4 py-2 border rounded-md w-full md:w-1/3 border-[var(--foreground-15)] outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
             />
 
             <input
               type="number"
               placeholder="Min year"
-              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
               onChange={(e) =>
                 setMinYear(e.target.value ? parseInt(e.target.value) : null)
               }
@@ -155,7 +159,7 @@ export default function MyBooksPage() {
             <input
               type="number"
               placeholder="Max year"
-              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-gray-400"
+              className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
               onChange={(e) =>
                 setMaxYear(e.target.value ? parseInt(e.target.value) : null)
               }
@@ -170,7 +174,7 @@ export default function MyBooksPage() {
                 className={`px-4 py-2 text-sm rounded-md border border-sky-700 text-sky-700 cursor-pointer transition ${
 statusFilter === status
 ? "bg-sky-700 text-white"
-: "bg-white text-black hover:bg-sky-100"
+: "text-black hover:bg-sky-700/10"
 }`}
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -179,14 +183,14 @@ statusFilter === status
           </div>
 
           {filteredBooks.length > 0 && (
-            <p className="my-4 text-sm text-gray-400 text-center">
+            <p className="my-4 text-sm text-[var(--foreground-30)] text-center">
               Showing {filteredBooks.length} book
               {filteredBooks.length > 1 ? "s" : ""}
             </p>
           )}
 
           {filteredBooks.length === 0 && (
-            <p className="mb-8 text-sm text-gray-400">No books matched your filters.</p>
+            <p className="mb-8 text-sm text-[var(--foreground-30)]">No books matched your filters.</p>
           )}
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12">

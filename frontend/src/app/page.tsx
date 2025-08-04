@@ -6,7 +6,7 @@ const slides = [
     image: "/carousel/slide1.png",
     heading: "Welcome to Readoo!",
     text: "Dive into a world of books! Search, filter, and explore titles you love, then curate your own list by favouriting and tracking what you've read.",
-    color: "#E3F5EF",
+    color: "rgba(99, 195, 169, 0.1)",
   },
   {
     image: "/carousel/slide2.png",
@@ -21,7 +21,7 @@ const slides = [
         </Link>
       </>
     ),
-    color: "#E9F4FD",
+    color: "rgba(108, 177, 228, 0.1)",
   },
   {
     image: "/carousel/slide3.png",
@@ -36,7 +36,7 @@ const slides = [
         </Link>
       </>
     ),
-    color: "#FEEBF1",
+    color: "rgba(246, 167, 183, 0.1)",
   },
 ];
 
@@ -45,8 +45,8 @@ export default function Home() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <ImageCarousel slides={slides} />
 
-      <div className="h-10 w-4 border border-gray-800 mx-auto mt-7 rounded-full py-1">
-        <div className="w-2 h-2 bg-gray-800 mx-auto rounded-full scroll-down-ball"></div>
+      <div className="h-10 w-4 border border-[var(--color)] mx-auto mt-7 rounded-full py-1">
+        <div className="w-2 h-2 bg-[var(--color)] mx-auto rounded-full scroll-down-ball"></div>
       </div>
 
       <div className="mt-24 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">

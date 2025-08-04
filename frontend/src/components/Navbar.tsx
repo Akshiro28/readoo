@@ -74,10 +74,10 @@ export default function Navbar() {
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`flex px-3 py-2 text-sm rounded ${
+                    className={`flex px-3 py-2 text-sm rounded transition ${
 pathname === link.path
-? "text-gray-800"
-: "text-gray-400 border-white hover:text-gray-800"
+? "text-[var(--color)]"
+: "text-[var(--foreground-40)] hover:text-[var(--color)]"
 }`}
                   >
                     {link.name}
@@ -113,14 +113,14 @@ pathname === link.path
                     <div
                       role="menu"
                       aria-labelledby="user-menu-button"
-                      className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 ring-[var(--foreground-15)]"
+                      className="absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-[rgb(var(--background-rgb))] py-1 ring-1 ring-[var(--foreground-15)]"
                     >
                       <a
                         id="user-menu-item-0"
                         role="menuitem"
                         href="#"
                         tabIndex={0}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block px-4 py-2 text-sm text-[var(--color)] hover:bg-[var(--foreground-07)] transition"
                         onClick={() => setUserMenuOpen(false)}
                       >
                         MyBooks
@@ -129,7 +129,7 @@ pathname === link.path
                         id="user-menu-item-2"
                         role="menuitem"
                         tabIndex={0}
-                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 cursor-pointer"
+                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-[var(--foreground-07)] cursor-pointer transition"
                         onClick={() => {
                           logOut();
                           setUserMenuOpen(false);
@@ -144,7 +144,7 @@ pathname === link.path
                   // logged-out
                   <button
                     onClick={signInWithGoogle}
-                    className="flex items-center gap-2 ps-3 pe-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 cursor-pointer"
+                    className="flex items-center gap-2 ps-3 pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
                   >
                     <Image
                       src="/images/person-placeholder.png"
