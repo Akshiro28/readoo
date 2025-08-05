@@ -15,7 +15,9 @@ if (!getApps().length) {
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 const dbName = process.env.MONGODB_DB_NAME || "readoo";
-const globalForMongo = global as typeof globalThis & { mongoClient?: MongoClient };
+const globalForMongo = global as typeof globalThis & {
+  mongoClient?: MongoClient;
+};
 
 if (!globalForMongo.mongoClient) {
   globalForMongo.mongoClient = new MongoClient(MONGODB_URI);
@@ -25,7 +27,9 @@ const client = globalForMongo.mongoClient;
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
-  const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.split(" ")[1]
+    : null;
 
   if (!token) {
     return NextResponse.json({ error: "Missing token" }, { status: 401 });
@@ -54,7 +58,9 @@ export async function GET(req: NextRequest) {
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
     console.error("Error in GET /api/my-books:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
-

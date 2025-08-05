@@ -56,49 +56,130 @@ export default function Explore() {
         } else {
           const recommendationQueries = [
             // General & Popular
-            "bestsellers", "trending books", "award winning", "critically acclaimed", "popular reads", "must read", "staff picks",
+            "bestsellers",
+            "trending books",
+            "award winning",
+            "critically acclaimed",
+            "popular reads",
+            "must read",
+            "staff picks",
 
             // Genres
-            "fiction", "non-fiction", "fantasy", "science fiction", "romance", "mystery", "thriller", "historical fiction", "graphic novel", "young adult", "children's books", "dystopian", "adventure", "horror", "literary fiction",
+            "fiction",
+            "non-fiction",
+            "fantasy",
+            "science fiction",
+            "romance",
+            "mystery",
+            "thriller",
+            "historical fiction",
+            "graphic novel",
+            "young adult",
+            "children's books",
+            "dystopian",
+            "adventure",
+            "horror",
+            "literary fiction",
 
             // Thematic
-            "self help", "personal development", "motivation", "mindfulness", "mental health", "productivity", "spirituality", "philosophy", "psychology",
+            "self help",
+            "personal development",
+            "motivation",
+            "mindfulness",
+            "mental health",
+            "productivity",
+            "spirituality",
+            "philosophy",
+            "psychology",
 
             // Academic & Informative
-            "popular science", "biology", "astronomy", "technology", "engineering", "history", "politics", "economics", "business", "finance", "true crime", "education",
+            "popular science",
+            "biology",
+            "astronomy",
+            "technology",
+            "engineering",
+            "history",
+            "politics",
+            "economics",
+            "business",
+            "finance",
+            "true crime",
+            "education",
 
             // Niche interests
-            "cookbooks", "travel", "memoir", "biography", "essays", "anthology", "poetry", "art", "music", "photography", "nature", "animals", "parenting", "crafts", "gardening",
+            "cookbooks",
+            "travel",
+            "memoir",
+            "biography",
+            "essays",
+            "anthology",
+            "poetry",
+            "art",
+            "music",
+            "photography",
+            "nature",
+            "animals",
+            "parenting",
+            "crafts",
+            "gardening",
 
             // Cultural / Identity
-            "LGBTQ+", "feminism", "BIPOC authors", "translated literature", "Asian authors", "African literature", "Native American stories",
+            "LGBTQ+",
+            "feminism",
+            "BIPOC authors",
+            "translated literature",
+            "Asian authors",
+            "African literature",
+            "Native American stories",
 
             // Mood-based
-            "feel good books", "heartbreaking stories", "uplifting reads", "books that make you think", "funny novels", "dark academia",
+            "feel good books",
+            "heartbreaking stories",
+            "uplifting reads",
+            "books that make you think",
+            "funny novels",
+            "dark academia",
 
             // Based on time/events
-            "summer reads", "holiday books", "back to school", "new releases", "classic novels", "books of the year", "2024 favorites",
+            "summer reads",
+            "holiday books",
+            "back to school",
+            "new releases",
+            "classic novels",
+            "books of the year",
+            "2024 favorites",
 
             // Mixed tags
-            "booktok", "netflix adaptations", "reese's book club", "nyt bestsellers", "goodreads choice awards", "underrated gems"
+            "booktok",
+            "netflix adaptations",
+            "reese's book club",
+            "nyt bestsellers",
+            "goodreads choice awards",
+            "underrated gems",
           ];
 
           const getRandomQuery = () => {
-            const randomIndex = Math.floor(Math.random() * recommendationQueries.length);
+            const randomIndex = Math.floor(
+              Math.random() * recommendationQueries.length
+            );
             return recommendationQueries[randomIndex];
           };
-          
+
           finalQuery = getRandomQuery();
           setIsRecommendation(true);
         }
 
         const res = await fetch(
-          `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(finalQuery)}&maxResults=30`
+          `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+            finalQuery
+          )}&maxResults=30`
         );
         const data = await res.json();
 
         const uniqueBooks = Array.from(
-          new Map((data.items || []).map((item: BookItem) => [item.id, item])).values()
+          new Map(
+            (data.items || []).map((item: BookItem) => [item.id, item])
+          ).values()
         ) as BookItem[];
 
         setBooks(uniqueBooks);
@@ -165,12 +246,16 @@ export default function Explore() {
         <p className="my-6 text-sm text-[var(--foreground-30)] text-center">
           {isRecommendation
             ? "Recommended Books"
-            : `Showing ${filteredBooks.length} result${filteredBooks.length !== 1 ? "s" : ""}`}
+            : `Showing ${filteredBooks.length} result${
+                filteredBooks.length !== 1 ? "s" : ""
+              }`}
         </p>
       )}
 
       {!loading && books.length === 0 && (
-        <p className="my-6 text-sm text-[var(--foreground-30)] text-center">No books found.</p>
+        <p className="my-6 text-sm text-[var(--foreground-30)] text-center">
+          No books found.
+        </p>
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-12">

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
@@ -28,8 +28,8 @@ export default function Navbar() {
         setUserMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   return (
@@ -41,19 +41,39 @@ export default function Navbar() {
               type="button"
               aria-controls="mobile-menu"
               aria-expanded={isMobileMenuOpen}
-              onClick={() => setMobileMenuOpen(prev => !prev)}
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
               className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-inset"
             >
               <span className="sr-only">Toggle main menu</span>
               {!isMobileMenuOpen ? (
-                <svg viewBox="0 0 24 24" className="block size-6" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  viewBox="0 0 24 24"
+                  className="block size-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               ) : (
-                  <svg viewBox="0 0 24 24" className="block size-6" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="block size-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </button>
           </div>
 
@@ -75,10 +95,10 @@ export default function Navbar() {
                     key={link.path}
                     href={link.path}
                     className={`flex px-3 py-2 text-sm rounded transition ${
-pathname === link.path
-? "text-[var(--color)]"
-: "text-[var(--foreground-40)] hover:text-[var(--color)]"
-}`}
+                      pathname === link.path
+                        ? "text-[var(--color)]"
+                        : "text-[var(--foreground-40)] hover:text-[var(--color)]"
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -88,7 +108,6 @@ pathname === link.path
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-
             <ThemeToggle />
             <div className="relative ml-3" ref={menuRef}>
               {user ? (
@@ -96,7 +115,7 @@ pathname === link.path
                   <button
                     id="user-menu-button"
                     type="button"
-                    onClick={() => setUserMenuOpen(prev => !prev)}
+                    onClick={() => setUserMenuOpen((prev) => !prev)}
                     className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800 cursor-pointer"
                   >
                     <span className="sr-only">Open user menu</span>
@@ -141,21 +160,21 @@ pathname === link.path
                   )}
                 </>
               ) : (
-                  // logged-out
-                  <button
-                    onClick={signInWithGoogle}
-                    className="flex items-center gap-2 ps-3 pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
-                  >
-                    <Image
-                      src="/images/person-placeholder.png"
-                      alt="Default Avatar"
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
-                    Sign in
-                  </button>
-                )}
+                // logged-out
+                <button
+                  onClick={signInWithGoogle}
+                  className="flex items-center gap-2 ps-3 pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
+                >
+                  <Image
+                    src="/images/person-placeholder.png"
+                    alt="Default Avatar"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
+                  Sign in
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -164,13 +183,27 @@ pathname === link.path
       {isMobileMenuOpen && (
         <div id="mobile-menu" className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
-            <a href="#" className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">Dashboard</a>
-            <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Team</a>
-            <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white">Projects</a>
+            <a
+              href="#"
+              className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+            >
+              Dashboard
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
+            >
+              Team
+            </a>
+            <a
+              href="#"
+              className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
+            >
+              Projects
+            </a>
           </div>
         </div>
       )}
     </nav>
   );
 }
-

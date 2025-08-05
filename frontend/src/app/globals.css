@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: 'Lexend';
-  src: url('/fonts/Lexend-Bold.ttf') format('truetype');
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Bold.ttf") format("truetype");
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'Lexend';
-  src: url('/fonts/Lexend-SemiBold.ttf') format('truetype');
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-SemiBold.ttf") format("truetype");
   font-weight: 600;
 }
 
 @font-face {
-  font-family: 'Lexend';
-  src: url('/fonts/Lexend-Medium.ttf') format('truetype');
+  font-family: "Lexend";
+  src: url("/fonts/Lexend-Medium.ttf") format("truetype");
   font-weight: 500;
 }
 
@@ -26,6 +26,7 @@
 
   --foreground-rgb: 23, 23, 23;
   --foreground: rgb(var(--foreground-rgb));
+  --foreground-04: rgba(var(--foreground-rgb), 0.04);
   --foreground-07: rgba(var(--foreground-rgb), 0.07);
   --foreground-10: rgba(var(--foreground-rgb), 0.1);
   --foreground-15: rgba(var(--foreground-rgb), 0.15);
@@ -38,7 +39,7 @@
   --background-90: rgba(var(--background-rgb), 0.9);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --foreground-rgb: 255, 255, 255;
   --background-rgb: 11, 12, 16;
   color: #fff;
@@ -46,20 +47,21 @@
 }
 
 @keyframes ping-pong-scroll-ball {
-0% {
-  transform: translateY(0);
-}
-5% {
-  transform: translateY(0);
-}
-95% {
-  transform: translateY(22px);
-}
-100% {
-  transform: translateY(22px);
-}
+  0% {
+    transform: translateY(0);
+  }
+  5% {
+    transform: translateY(0);
+  }
+  95% {
+    transform: translateY(22px);
+  }
+  100% {
+    transform: translateY(22px);
+  }
 }
 
 .scroll-down-ball {
-  animation: ping-pong-scroll-ball 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  animation: ping-pong-scroll-ball 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite
+    alternate;
 }

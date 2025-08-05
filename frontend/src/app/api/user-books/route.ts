@@ -29,7 +29,9 @@ const client = globalForMongo.mongoClient;
 
 export async function POST(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
-  const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.split(" ")[1]
+    : null;
 
   if (!token) {
     return NextResponse.json({ error: "Missing token" }, { status: 401 });
@@ -41,7 +43,10 @@ export async function POST(req: NextRequest) {
     const { bookId, statusKey } = await req.json();
 
     if (!bookId || !["read", "favorite", "wishlist"].includes(statusKey)) {
-      return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
     }
 
     await client.connect();
@@ -55,20 +60,20 @@ export async function POST(req: NextRequest) {
     const update = isMarked
       ? { $set: { [`status.${statusKey}`]: false } }
       : {
-        $set: {
-          [`status.${statusKey}`]: true,
-          uid,
-          bookId,
-        },
-      };
+          $set: {
+            [`status.${statusKey}`]: true,
+            uid,
+            bookId,
+          },
+        };
 
     await collection.updateOne(filter, update, { upsert: true });
 
     const updatedDoc = await collection.findOne(filter);
     const allFalse =
       !updatedDoc?.status?.read &&
-        !updatedDoc?.status?.favorite &&
-        !updatedDoc?.status?.wishlist;
+      !updatedDoc?.status?.favorite &&
+      !updatedDoc?.status?.wishlist;
 
     if (allFalse) {
       await collection.deleteOne(filter);
@@ -85,13 +90,18 @@ export async function POST(req: NextRequest) {
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
     console.error("Error in POST /api/user-books:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization") || "";
-  const token = authHeader.startsWith("Bearer ") ? authHeader.split(" ")[1] : null;
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.split(" ")[1]
+    : null;
 
   if (!token) {
     return NextResponse.json({ error: "Missing token" }, { status: 401 });
@@ -123,7 +133,9 @@ export async function GET(req: NextRequest) {
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
     console.error("Error in GET /api/user-books:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
-

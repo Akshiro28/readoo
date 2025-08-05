@@ -11,6 +11,14 @@ interface Slide {
   heading?: string;
   text?: string | ReactNode;
   color?: string;
+  border?: string;
+  circleHeight1?: string;
+  circleTop1?: string;
+  circleLeft1?: string;
+  circleColor2?: string;
+  circleHeight2?: string;
+  circleTop2?: string;
+  circleLeft2?: string;
 }
 
 interface ImageCarouselProps {
@@ -26,7 +34,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
         <Carousel
           showThumbs={false}
           infiniteLoop
-          autoPlay
+          // autoPlay
           interval={5000}
           transitionTime={800}
           showStatus={false}
@@ -39,12 +47,21 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
             <div
               key={idx}
               className={styles.slideWrapper}
-              style={{ "--bg-color": slide.color || "#fff" } as React.CSSProperties}
+              style={
+                {
+                  "--bg-color": slide.color || "#fff",
+                  "--border-color": slide.border || "#000",
+                } as React.CSSProperties
+              }
             >
               {(slide.heading || slide.text) && (
                 <div className={styles.overlayGroup}>
-                  {slide.heading && <div className={styles.heading}>{slide.heading}</div>}
-                  {slide.text && <div className={styles.text}>{slide.text}</div>}
+                  {slide.heading && (
+                    <div className={styles.heading}>{slide.heading}</div>
+                  )}
+                  {slide.text && (
+                    <div className={styles.text}>{slide.text}</div>
+                  )}
                 </div>
               )}
 
@@ -55,6 +72,34 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
                   className={styles.image}
                   fill
                   priority={idx === 0}
+                />
+
+                <div
+                  className={styles.circles}
+                  style={
+                    {
+                      "--bg-color": slide.color || "#fff",
+                      height: slide.circleHeight1,
+                      top: slide.circleTop1,
+                      left: slide.circleLeft1,
+                      border: `1px solid ${slide.border}`,
+                      position: "absolute",
+                    } as React.CSSProperties
+                  }
+                />
+
+                <div
+                  className={styles.circles}
+                  style={
+                    {
+                      "--bg-color": slide.color || "#fff",
+                      height: slide.circleHeight2,
+                      top: slide.circleTop2,
+                      left: slide.circleLeft2,
+                      border: `1px solid ${slide.border}`,
+                      position: "absolute",
+                    } as React.CSSProperties
+                  }
                 />
               </div>
             </div>

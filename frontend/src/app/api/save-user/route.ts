@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { connectToDatabase } from '../../utils/db';
-import { authenticate } from '../../utils/auth-app';
+import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase } from "../../utils/db";
+import { authenticate } from "../../utils/auth-app";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,11 +8,11 @@ export async function POST(req: NextRequest) {
     const { email, name, photo } = await req.json();
 
     if (!email || !name || !photo) {
-      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
     const { db } = await connectToDatabase();
-    const users = db.collection('users');
+    const users = db.collection("users");
 
     const result = await users.updateOne(
       { uid: user.uid },
@@ -28,15 +28,14 @@ export async function POST(req: NextRequest) {
       { upsert: true }
     );
 
-    return NextResponse.json({ message: 'User saved', result });
+    return NextResponse.json({ message: "User saved", result });
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error(err);
       return NextResponse.json({ error: err.message }, { status: 401 });
     }
 
-    console.error('Unexpected error', err);
-    return NextResponse.json({ error: 'Unexpected error' }, { status: 500 });
+    console.error("Unexpected error", err);
+    return NextResponse.json({ error: "Unexpected error" }, { status: 500 });
   }
 }
-

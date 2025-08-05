@@ -38,7 +38,9 @@ export default function BookCard({ book }: { book: BookType }) {
 
   const year = volumeInfo.publishedDate?.substring(0, 4) || "Unknown Year";
   const image = volumeInfo.imageLinks?.thumbnail
-    ? volumeInfo.imageLinks.thumbnail.replace("&zoom=1", "&zoom=2").replace("http:", "https:")
+    ? volumeInfo.imageLinks.thumbnail
+        .replace("&zoom=1", "&zoom=2")
+        .replace("http:", "https:")
     : "/images/book-cover-placeholder.png";
 
   useEffect(() => {
@@ -141,34 +143,40 @@ export default function BookCard({ book }: { book: BookType }) {
             >
               <CircleCheck
                 className={`w-5 h-5 ${
-status.read
-? "text-white fill-green-600"
-: "text-green-600 fill-none"
-}`}
+                  status.read
+                    ? "text-white fill-green-600"
+                    : "text-green-600 fill-none"
+                }`}
               />
             </button>
 
             <button
               className="bg-white rounded p-1 shadow-md cursor-pointer"
-              title={status.favorite ? "Remove from Favorites" : "Add to Favorites"}
+              title={
+                status.favorite ? "Remove from Favorites" : "Add to Favorites"
+              }
               onClick={() => handleMarkAs("favorite")}
             >
               <Heart
                 className={`w-5 h-5 ${
-status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
-}`}
+                  status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
+                }`}
               />
             </button>
 
             <button
               className="bg-white rounded p-1 shadow-md cursor-pointer"
-              title={status.wishlist ? "Remove from Wishlist" : "Add to Wishlist"}
+              title={
+                status.wishlist ? "Remove from Wishlist" : "Add to Wishlist"
+              }
               onClick={() => handleMarkAs("wishlist")}
             >
               <Bookmark
                 className={`w-5 h-5 ${
-status.wishlist ? "text-blue-500 fill-blue-500" : "text-blue-500"
-}`}
+                  status.wishlist
+                    ? "text-blue-500 fill-blue-500"
+                    : "text-blue-500"
+                }`}
               />
             </button>
           </div>
@@ -185,4 +193,3 @@ status.wishlist ? "text-blue-500 fill-blue-500" : "text-blue-500"
     </div>
   );
 }
-

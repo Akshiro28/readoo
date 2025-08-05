@@ -42,7 +42,9 @@ export default function MyBooksPage() {
   const [loading, setLoading] = useState(true);
   const [searchTitle, setSearchTitle] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"all" | "read" | "favorite" | "wishlist">("all");
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "read" | "favorite" | "wishlist"
+  >("all");
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
 
@@ -63,7 +65,9 @@ export default function MyBooksPage() {
         const bookDetails = await Promise.all(
           data.map(async (entry: BookEntry) => {
             try {
-              const res = await fetch(`https://www.googleapis.com/books/v1/volumes/${entry.bookId}`);
+              const res = await fetch(
+                `https://www.googleapis.com/books/v1/volumes/${entry.bookId}`
+              );
               const json = await res.json();
 
               // if Google API limit reached or data invalid, skip
@@ -80,7 +84,9 @@ export default function MyBooksPage() {
           })
         );
 
-        const validBooks = bookDetails.filter((b): b is BookWithStatus => b !== null);
+        const validBooks = bookDetails.filter(
+          (b): b is BookWithStatus => b !== null
+        );
         setBooks(validBooks);
       } catch (err) {
         console.error("Failed to fetch my books:", err);
@@ -93,28 +99,32 @@ export default function MyBooksPage() {
   }, [user]);
 
   const filteredBooks = books.filter((book) => {
-    const titleMatch = book.volumeInfo?.title?.toLowerCase().includes(searchTitle.toLowerCase()) ?? false;
-    const authorMatch = book.volumeInfo?.authors?.some((a) =>
-      a.toLowerCase().includes(searchAuthor.toLowerCase())
-    ) ?? false;
+    const titleMatch =
+      book.volumeInfo?.title
+        ?.toLowerCase()
+        .includes(searchTitle.toLowerCase()) ?? false;
+    const authorMatch =
+      book.volumeInfo?.authors?.some((a) =>
+        a.toLowerCase().includes(searchAuthor.toLowerCase())
+      ) ?? false;
 
     const matchesSearch =
       (searchTitle === "" || titleMatch) &&
-        (searchAuthor === "" || authorMatch);
+      (searchAuthor === "" || authorMatch);
 
     const status = book.status || {};
     const matchesStatus =
       statusFilter === "all" ||
-        (statusFilter === "read" && status.read) ||
-        (statusFilter === "favorite" && status.favorite) ||
-        (statusFilter === "wishlist" && status.wishlist);
+      (statusFilter === "read" && status.read) ||
+      (statusFilter === "favorite" && status.favorite) ||
+      (statusFilter === "wishlist" && status.wishlist);
 
     const yearStr = book.volumeInfo?.publishedDate?.slice(0, 4);
     const year = yearStr ? parseInt(yearStr) : null;
 
     const matchesYear =
       (minYear === null || (year !== null && year >= minYear)) &&
-        (maxYear === null || (year !== null && year <= maxYear));
+      (maxYear === null || (year !== null && year <= maxYear));
 
     return matchesSearch && matchesStatus && matchesYear;
   });
@@ -162,12 +172,16 @@ export default function MyBooksPage() {
         {["all", "read", "favorite", "wishlist"].map((status) => (
           <button
             key={status}
-            onClick={() => setStatusFilter(status as "all" | "read" | "favorite" | "wishlist")}
+            onClick={() =>
+              setStatusFilter(
+                status as "all" | "read" | "favorite" | "wishlist"
+              )
+            }
             className={`px-4 py-2 text-sm rounded-md border border-sky-700 text-sky-700 cursor-pointer transition ${
-statusFilter === status
-? "bg-sky-700 text-white"
-: "text-black hover:bg-sky-700/10"
-}`}
+              statusFilter === status
+                ? "bg-sky-700 text-white"
+                : "text-black hover:bg-sky-700/10"
+            }`}
           >
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </button>
@@ -175,10 +189,12 @@ statusFilter === status
       </div>
 
       {!user ? (
-        <p className="my-6 text-center">Sign in to start customizing your own books list!</p>
+        <p className="my-6 text-center">
+          Sign in to start customizing your own books list!
+        </p>
       ) : loading ? (
         <p className="my-6 text-center">Loading your books...</p>
-      ) : null}    
+      ) : null}
 
       {!loading && (
         <>
@@ -191,7 +207,8 @@ statusFilter === status
 
           {books.length === 0 ? (
             <p className="my-6 text-sm text-[var(--color)] text-center">
-              You haven&apos;t added any books yet. Start by adding books to your list!
+              You haven&apos;t added any books yet. Start by adding books to
+              your list!
             </p>
           ) : filteredBooks.length === 0 ? (
             <p className="my-6 text-sm text-[var(--color)] text-center">

@@ -1,4 +1,9 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { firebaseApp } from "./config";
 
 const auth = getAuth(firebaseApp);
@@ -11,7 +16,7 @@ export const signInWithGoogle = async () => {
 
     const token = await user.getIdToken();
 
-    await fetch('/api/save-user', {
+    await fetch("/api/save-user", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -33,4 +38,3 @@ export const signInWithGoogle = async () => {
 export const logOut = () => signOut(auth);
 
 export { auth };
-
