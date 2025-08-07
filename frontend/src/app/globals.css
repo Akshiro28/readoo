@@ -33,6 +33,8 @@
   --foreground-25: rgba(var(--foreground-rgb), 0.25);
   --foreground-30: rgba(var(--foreground-rgb), 0.3);
   --foreground-40: rgba(var(--foreground-rgb), 0.4);
+  --foreground-04-non-transparent: #F6F6F6;
+  --foreground-15-non-transparent: #D4D4D4;
 
   --background-rgb: 255, 255, 255;
   --background: rgb(var(--background-rgb));
@@ -44,24 +46,71 @@
   --background-rgb: 11, 12, 16;
   color: #fff;
   --color: #fff;
+
+  --foreground-04-non-transparent: #151619;
+  --foreground-15-non-transparent: #38393b;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 @keyframes ping-pong-scroll-ball {
-  0% {
-    transform: translateY(0);
-  }
-  5% {
-    transform: translateY(0);
-  }
-  95% {
-    transform: translateY(22px);
-  }
-  100% {
-    transform: translateY(22px);
-  }
+0% {
+  transform: translateY(0);
+}
+5% {
+  transform: translateY(0);
+}
+95% {
+  transform: translateY(22px);
+}
+100% {
+  transform: translateY(22px);
+}
 }
 
 .scroll-down-ball {
   animation: ping-pong-scroll-ball 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite
     alternate;
+}
+
+.triangle-wrapper {
+  position: relative;
+  width: 100%;
+  height: 84px;
+}
+
+.triangle-background {
+  position: absolute;
+  inset: 0;
+  background-color: var(--foreground-04-non-transparent);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  z-index: 1;
+}
+
+.triangle-border {
+  position: absolute;
+  inset: 0;
+  background-color: var(--foreground-15-non-transparent);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  transform: scale(1.02);
+  z-index: 0;
+}
+
+.triangle-background-reverse {
+  position: absolute;
+  inset: 0;
+  background-color: var(--foreground-04-non-transparent);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  z-index: 1;
+}
+
+.triangle-border-reverse {
+  position: absolute;
+  inset: 0;
+  background-color: var(--foreground-15-non-transparent);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  transform: scale(1.02);
+  z-index: 0;
 }

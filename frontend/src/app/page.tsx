@@ -87,7 +87,12 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="bg-[var(--foreground-04)] py-32 mt-32 border-t border-b border-[var(--foreground-15)]">
+      <div className="triangle-wrapper mt-8">
+        <div className="triangle-border"></div>
+        <div className="triangle-background"></div>
+      </div>
+
+      <div className="bg-[var(--foreground-04-non-transparent)] py-32 z-1 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl bg-[rgb(var(--background-rgb))]">
             <div className="p-16">
@@ -106,7 +111,7 @@ export default function Home() {
                 Discover Your Next Read
               </h2>
               <p className="mb-6">
-                Dive into a rich collection of books across every genre and interest! Whether you're looking for trending titles, hidden gems, or timeless classics, our database has it all listed and ready to explore.
+                Dive into a rich collection of books across every genre and interest! Whether you&apos;re looking for trending titles, hidden gems, or timeless classics, our database has it all listed and ready to explore.
               </p>
               <Link
                 href="/explore"
@@ -117,6 +122,11 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="triangle-wrapper">
+        <div className="triangle-border-reverse"></div>
+        <div className="triangle-background-reverse"></div>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
