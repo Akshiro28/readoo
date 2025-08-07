@@ -12,13 +12,6 @@ interface Slide {
   text?: string | ReactNode;
   color?: string;
   border?: string;
-  circleHeight1?: string;
-  circleTop1?: string;
-  circleLeft1?: string;
-  circleColor2?: string;
-  circleHeight2?: string;
-  circleTop2?: string;
-  circleLeft2?: string;
 }
 
 interface ImageCarouselProps {
@@ -72,34 +65,6 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
                   className={styles.image}
                   fill
                   priority={idx === 0}
-                />
-
-                <div
-                  className={styles.circles}
-                  style={
-                    {
-                      "--bg-color": slide.color || "#fff",
-                      height: slide.circleHeight1,
-                      top: slide.circleTop1,
-                      left: slide.circleLeft1,
-                      border: `1px solid ${slide.border}`,
-                      position: "absolute",
-                    } as React.CSSProperties
-                  }
-                />
-
-                <div
-                  className={styles.circles}
-                  style={
-                    {
-                      "--bg-color": slide.color || "#fff",
-                      height: slide.circleHeight2,
-                      top: slide.circleTop2,
-                      left: slide.circleLeft2,
-                      border: `1px solid ${slide.border}`,
-                      position: "absolute",
-                    } as React.CSSProperties
-                  }
                 />
               </div>
             </div>

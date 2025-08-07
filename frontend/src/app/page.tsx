@@ -7,23 +7,14 @@ import { useEffect, useState } from "react";
 
 const slides = [
   {
-    image: "/carousel/slide1.png",
+    image: "/images/readoo.svg",
     heading: "Welcome to Readoo!",
     text: "Dive into a world of books! Search, filter, and explore titles you love, then curate your own list by favouriting and tracking what you've read",
     color: "rgba(99, 195, 169, 0.1)",
     border: "rgba(99, 195, 169, 1)",
-
-    circleHeight1: "110%",
-    circleTop1: "-48%",
-    circleLeft1: "6%",
-
-    circleColor2: "rgba(99, 195, 169, 0.2)",
-    circleHeight2: "70%",
-    circleTop2: "80%",
-    circleLeft2: "0%",
   },
   {
-    image: "/carousel/slide2.png",
+    image: "/images/explore-book.svg",
     heading: "Discover Your Next Read",
     text: (
       <>
@@ -43,7 +34,7 @@ const slides = [
     border: "rgba(108, 177, 228, 1)",
   },
   {
-    image: "/carousel/slide3.png",
+    image: "images/my-books.svg",
     heading: "Your Personal Book List",
     text: (
       <>
@@ -101,17 +92,12 @@ export default function Home() {
           <div className="border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl bg-[rgb(var(--background-rgb))]">
             <div className="p-16">
               <div className="space-y-2">
-                <GenreMarquee />
-                {Array(10)
-                  .fill(null)
-                  .map((_, idx) => (
-                    <div
-                      key={`bottom-line-${idx}`}
-                      className="flex items-center h-8"
-                    >
-                      <div className="w-full border-t border-[var(--foreground-15)]" />
-                    </div>
-                  ))}
+                <GenreMarquee direction="left" />
+                <GenreMarquee direction="right" />
+                <GenreMarquee direction="left" />
+                <GenreMarquee direction="right" />
+                <GenreMarquee direction="left" />
+                <GenreMarquee direction="right" />
               </div>
             </div>
 
@@ -119,9 +105,8 @@ export default function Home() {
               <h2 className="text-3xl font-semibold mb-4">
                 Discover Your Next Read
               </h2>
-              <p className="mb-4">
-                Search, filter, and sort through a wide library to find your
-                next great read.
+              <p className="mb-6">
+                Dive into a rich collection of books across every genre and interest! Whether you're looking for trending titles, hidden gems, or timeless classics, our database has it all listed and ready to explore.
               </p>
               <Link
                 href="/explore"
@@ -140,9 +125,8 @@ export default function Home() {
             <h2 className="text-3xl font-semibold mb-4">
               Curate your personal books list
             </h2>
-            <p className="mb-4">
-              Track books you&apos;ve read, save favourites, and curate your own
-              library.
+            <p className="mb-6">
+              Build your own personal bookshelf with ease. Keep track of what you’ve read, save your favorite titles, and organize books the way you like. Whether you’re a casual reader or a dedicated bookworm, your curated library is always just a click away.
             </p>
             <Link
               href="/mybooks"

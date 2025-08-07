@@ -52,13 +52,15 @@
 .imageContainer {
   flex: 1;
   position: relative;
-  height: 100%;
+  height: 90%;
   max-width: 50%;
 }
 
 .image {
   object-fit: contain;
   z-index: 1;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 .indicators {
@@ -99,11 +101,4 @@
     height: 250px;
     margin-top: 1rem;
   }
-}
-
-.circles {
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background-color: var(--bg-color);
-  position: absolute;
 }

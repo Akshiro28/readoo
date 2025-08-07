@@ -3,20 +3,31 @@
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
+  gap: 1rem;
+}
+
+.container.left .track {
+  animation: scrollLeft 128s linear infinite;
+}
+
+.container.right .track {
+  animation: scrollRight 128s linear infinite;
 }
 
 .track {
   display: inline-block;
   white-space: nowrap;
-  animation: scroll 64s linear infinite;
 }
 
 .text {
   display: inline-block;
   margin-right: 2rem;
+  font-size: 1.5rem;
   color: var(--foreground);
   text-transform: uppercase;
   font-weight: semi-bold;
+  display: inline-block;
+  line-height: 3rem;
 }
 
 .gradientLeft,
@@ -31,11 +42,7 @@
 
 .gradientLeft {
   left: 0;
-  background: linear-gradient(
-    to right,
-    rgb(var(--background-rgb)),
-    transparent
-  );
+  background: linear-gradient(to right, rgb(var(--background-rgb)), transparent);
 }
 
 .gradientRight {
@@ -43,11 +50,20 @@
   background: linear-gradient(to left, rgb(var(--background-rgb)), transparent);
 }
 
-@keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+@keyframes scrollLeft {
+0% {
+  transform: translateX(0%);
+}
+100% {
+  transform: translateX(-50%);
+}
+}
+
+@keyframes scrollRight {
+0% {
+  transform: translateX(-50%);
+}
+100% {
+  transform: translateX(0%);
+}
 }
