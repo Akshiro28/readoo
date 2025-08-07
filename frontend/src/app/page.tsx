@@ -4,6 +4,8 @@ import ImageCarousel from "../components/ImageCarousel/ImageCarousel";
 import GenreMarquee from "../components/GenreMarquee/GenreMarquee";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import BookshelfSvgMyBooks from '../components/BookshelfSvgMyBooks';
+import BookshelfSvgExplore from '../components/BookshelfSvgExplore';
 
 const slides = [
   {
@@ -94,6 +96,15 @@ export default function Home() {
 
       <div className="bg-[var(--foreground-04-non-transparent)] py-32 z-1 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <BookshelfSvgExplore
+            style={{
+              width: '100vw',
+              maxWidth: '400px',
+              display: 'block',
+              margin: '0 auto',
+            }}
+          />
           <div className="border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl bg-[rgb(var(--background-rgb))]">
             <div className="p-16">
               <div className="space-y-2">
@@ -122,53 +133,62 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        <BookshelfSvgMyBooks
+          style={{
+            width: '100vw',
+            maxWidth: '400px',
+            display: 'block',
+            margin: '0 auto',
+          }}
+        />
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="bg-[rgb(var(--background-rgb))] mt-32 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
+            <div className="p-16">
+              <h2 className="text-3xl font-semibold mb-4">
+                Curate your personal books list
+              </h2>
+              <p className="mb-6">
+                Build your own personal bookshelf with ease. Keep track of what you’ve read, save your favorite titles, and organize books the way you like. Whether you’re a casual reader or a dedicated bookworm, your curated library is always just a click away.
+              </p>
+              <Link
+                href="/mybooks"
+                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
+              >
+                MyBooks →
+              </Link>
+            </div>
+
+            <div className="border-l border-[var(--foreground-15)] flex flex-col">
+              <div className="p-16 flex-1 flex items-center justify-between text-3xl font-semibold before:content-['→']">
+                <div className="text-end">
+                  <p>{stats?.totalUsers ?? "—"}</p>
+                  <p>Total registered users</p>
+                </div>
+              </div>
+
+              <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
+                <div className="text-end">
+                  <p>{stats?.totalSavedBooks ?? "—"}</p>
+                  <p>Total saved books</p>
+                </div>
+              </div>
+
+              <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
+                <div className="text-end">
+                  <p>{stats?.averageBooks ?? "—"}</p>
+                  <p>Average books per user</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="triangle-wrapper">
         <div className="triangle-border-reverse"></div>
         <div className="triangle-background-reverse"></div>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="my-32 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
-          <div className="p-16">
-            <h2 className="text-3xl font-semibold mb-4">
-              Curate your personal books list
-            </h2>
-            <p className="mb-6">
-              Build your own personal bookshelf with ease. Keep track of what you’ve read, save your favorite titles, and organize books the way you like. Whether you’re a casual reader or a dedicated bookworm, your curated library is always just a click away.
-            </p>
-            <Link
-              href="/mybooks"
-              className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
-            >
-              MyBooks →
-            </Link>
-          </div>
-
-          <div className="border-l border-[var(--foreground-15)] flex flex-col">
-            <div className="p-16 flex-1 flex items-center justify-between text-3xl font-semibold before:content-['→']">
-              <div className="text-end">
-                <p>{stats?.totalUsers ?? "—"}</p>
-                <p>Total registered users</p>
-              </div>
-            </div>
-
-            <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
-              <div className="text-end">
-                <p>{stats?.totalSavedBooks ?? "—"}</p>
-                <p>Total saved books</p>
-              </div>
-            </div>
-
-            <div className="p-16 flex-1 flex items-center justify-between border-t border-[var(--foreground-15)] text-3xl font-semibold before:content-['→']">
-              <div className="text-end">
-                <p>{stats?.averageBooks ?? "—"}</p>
-                <p>Average books per user</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );
