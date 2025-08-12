@@ -90,8 +90,8 @@ const BookshelfSvgMyBooks: React.FC<BookshelfSvgProps> = ({ style }) => {
         viewBox={`0 0 ${viewWidth} ${viewHeight}`}
         preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
-        fill="rgb(var(--background-rgb))"
-        stroke="rgb(var(--foreground-rgb))"
+        fill="var(--background)"
+        stroke="var(--foreground)"
         strokeWidth="2"
       >
         {/* Upright Book (Green) */}
