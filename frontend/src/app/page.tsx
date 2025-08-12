@@ -94,7 +94,7 @@ export default function Home() {
         <div className="triangle-background"></div>
       </div>
 
-      <div className="bg-[var(--foreground-04-non-transparent)] py-32 z-1 relative">
+      <div className="bg-[var(--foreground-04-non-transparent)] pb-32 pt-8 z-1 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
           <BookshelfSvgExplore
@@ -105,7 +105,7 @@ export default function Home() {
               margin: '0 auto',
             }}
           />
-          <div className="border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl bg-[rgb(var(--background-rgb))]">
+          <div className="border border-[var(--foreground-15)] grid grid-cols-2 mt-12 mb-32 rounded-4xl bg-[rgb(var(--background-rgb))]">
             <div className="p-16">
               <div className="space-y-2">
                 <GenreMarquee direction="left" />
@@ -144,7 +144,7 @@ export default function Home() {
         />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-[rgb(var(--background-rgb))] mt-32 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
+          <div className="bg-[rgb(var(--background-rgb))] mt-12 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
             <div className="p-16">
               <h2 className="text-3xl font-semibold mb-4">
                 Curate your personal books list

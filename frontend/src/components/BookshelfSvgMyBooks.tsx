@@ -84,36 +84,18 @@ const BookshelfSvgMyBooks: React.FC<BookshelfSvgProps> = ({ style }) => {
       {/* Tilted Right Book */}
       <g transform={`rotate(15 ${0.32 * viewWidth} ${0.75 * viewHeight})`}>
         <rect
-          x={0.595 * viewWidth}
-          y={0.222 * viewHeight}
+          x={0.58 * viewWidth}
+          y={0.23 * viewHeight}
           width={0.06 * viewWidth}
           height={0.5 * viewHeight}
         />
       </g>
 
       {/* Flat Book */}
-      <rect
-        x={0.725 * viewWidth}
-        y={0.75 * viewHeight}
-        width={0.2 * viewWidth}
-        height={0.15 * viewHeight}
-      />
-
-      {/* Flat Book */}
-      <rect
-        x={0.75 * viewWidth}
-        y={0.6 * viewHeight}
-        width={0.2 * viewWidth}
-        height={0.15 * viewHeight}
-      />
-
-      {/* Flat Book */}
-      <rect
-        x={0.71 * viewWidth}
-        y={0.45 * viewHeight}
-        width={0.2 * viewWidth}
-        height={0.15 * viewHeight}
-      />
+      <rect x={0.683 * viewWidth} y={0.78 * viewHeight} width={0.25 * viewWidth} height={0.12 * viewHeight} />
+      <rect x={0.698 * viewWidth} y={0.66 * viewHeight} width={0.25 * viewWidth} height={0.12 * viewHeight} />
+      <rect x={0.723 * viewWidth} y={0.54 * viewHeight} width={0.25 * viewWidth} height={0.12 * viewHeight} />
+      <rect x={0.698 * viewWidth} y={0.42 * viewHeight} width={0.25 * viewWidth} height={0.12 * viewHeight} />
     </svg>
   );
 };
