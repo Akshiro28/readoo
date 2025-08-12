@@ -24,26 +24,26 @@
 
   --color: var(--color-gray-800);
 
-  --foreground-rgb: 23, 23, 23;
+  --foreground-rgb: 23,23,23;
   --foreground: rgb(var(--foreground-rgb));
-  --foreground-04: rgba(var(--foreground-rgb), 0.04);
-  --foreground-07: rgba(var(--foreground-rgb), 0.07);
-  --foreground-10: rgba(var(--foreground-rgb), 0.1);
-  --foreground-15: rgba(var(--foreground-rgb), 0.15);
-  --foreground-25: rgba(var(--foreground-rgb), 0.25);
-  --foreground-30: rgba(var(--foreground-rgb), 0.3);
-  --foreground-40: rgba(var(--foreground-rgb), 0.4);
+  --foreground-04: rgba(var(--foreground-rgb),0.04);
+  --foreground-07: rgba(var(--foreground-rgb),0.07);
+  --foreground-10: rgba(var(--foreground-rgb),0.1);
+  --foreground-15: rgba(var(--foreground-rgb),0.15);
+  --foreground-25: rgba(var(--foreground-rgb),0.25);
+  --foreground-30: rgba(var(--foreground-rgb),0.3);
+  --foreground-40: rgba(var(--foreground-rgb),0.4);
   --foreground-04-non-transparent: #F6F6F6;
   --foreground-15-non-transparent: #D4D4D4;
 
-  --background-rgb: 255, 255, 255;
+  --background-rgb: 255,255,255;
   --background: rgb(var(--background-rgb));
-  --background-90: rgba(var(--background-rgb), 0.9);
+  --background-90: rgba(var(--background-rgb),0.9);
 }
 
 [data-theme="dark"] {
-  --foreground-rgb: 255, 255, 255;
-  --background-rgb: 11, 12, 16;
+  --foreground-rgb: 255,255,255;
+  --background-rgb: 11,12,16;
   color: #fff;
   --color: #fff;
 

@@ -28,7 +28,7 @@ const BookshelfSvgExplore: React.FC<BookshelfSvgProps> = ({ style }) => {
           trigger: "#bookshelf-svg-container",
           start: "top 80%",
           end: "bottom 20%",
-          toggleActions: "restart none none reset", // OnEnter, OnLeave, OnEnterBack, OnLeaveBack
+          toggleActions: "restart none none reverse", // OnEnter, OnLeave, OnEnterBack, OnLeaveBack
         },
       }
     );
@@ -56,8 +56,8 @@ const BookshelfSvgExplore: React.FC<BookshelfSvgProps> = ({ style }) => {
         viewBox={`0 0 ${viewWidth} ${viewHeight}`}
         preserveAspectRatio="xMidYMid meet"
         xmlns="http://www.w3.org/2000/svg"
-        fill="var(--background)"
-        stroke="var(--foreground)"
+        fill="rgb(var(--background-rgb))"
+        stroke="rgb(var(--foreground-rgb))"
         strokeWidth="2"
       >
         {/* Shelf */}
@@ -66,8 +66,6 @@ const BookshelfSvgExplore: React.FC<BookshelfSvgProps> = ({ style }) => {
           y={0.9 * viewHeight}
           width={viewWidth - 2}
           height={0.05 * viewHeight}
-          fill="rgb(var(--background-rgb))"
-          stroke="var(--foreground)"
           strokeWidth="2"
         />
 
