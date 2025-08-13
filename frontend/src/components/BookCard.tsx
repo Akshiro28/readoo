@@ -39,8 +39,8 @@ export default function BookCard({ book }: { book: BookType }) {
   const year = volumeInfo.publishedDate?.substring(0, 4) || "Unknown Year";
   const image = volumeInfo.imageLinks?.thumbnail
     ? volumeInfo.imageLinks.thumbnail
-        .replace("&zoom=1", "&zoom=2")
-        .replace("http:", "https:")
+    .replace("&zoom=1", "&zoom=2")
+    .replace("http:", "https:")
     : "/images/book-cover-placeholder.png";
 
   useEffect(() => {
@@ -143,10 +143,10 @@ export default function BookCard({ book }: { book: BookType }) {
             >
               <CircleCheck
                 className={`w-5 h-5 ${
-                  status.read
-                    ? "text-white fill-green-600"
-                    : "text-green-600 fill-none"
-                }`}
+status.read
+? "text-white fill-green-600"
+: "text-green-600 fill-none"
+}`}
               />
             </button>
 
@@ -159,8 +159,8 @@ export default function BookCard({ book }: { book: BookType }) {
             >
               <Heart
                 className={`w-5 h-5 ${
-                  status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
-                }`}
+status.favorite ? "text-red-500 fill-red-500" : "text-red-500"
+}`}
               />
             </button>
 
@@ -173,10 +173,10 @@ export default function BookCard({ book }: { book: BookType }) {
             >
               <Bookmark
                 className={`w-5 h-5 ${
-                  status.wishlist
-                    ? "text-blue-500 fill-blue-500"
-                    : "text-blue-500"
-                }`}
+status.wishlist
+? "text-blue-500 fill-blue-500"
+: "text-blue-500"
+}`}
               />
             </button>
           </div>

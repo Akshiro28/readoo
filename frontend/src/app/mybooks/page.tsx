@@ -23,6 +23,7 @@ type BookEntry = {
   bookId: string;
   status: {
     read?: boolean;
+    readDate?: string | null; // added
     favorite?: boolean;
     wishlist?: boolean;
   };
@@ -31,6 +32,7 @@ type BookEntry = {
 type BookWithStatus = BookType & {
   status: {
     read?: boolean;
+    readDate?: string | null; // added
     favorite?: boolean;
     wishlist?: boolean;
   };
@@ -43,8 +45,8 @@ export default function MyBooksPage() {
   const [searchTitle, setSearchTitle] = useState("");
   const [searchAuthor, setSearchAuthor] = useState("");
   const [statusFilter, setStatusFilter] = useState<
-    "all" | "read" | "favorite" | "wishlist"
-  >("all");
+  "all" | "read" | "favorite" | "wishlist"
+>("all");
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
 
@@ -110,28 +112,51 @@ export default function MyBooksPage() {
 
     const matchesSearch =
       (searchTitle === "" || titleMatch) &&
-      (searchAuthor === "" || authorMatch);
+        (searchAuthor === "" || authorMatch);
 
     const status = book.status || {};
     const matchesStatus =
       statusFilter === "all" ||
-      (statusFilter === "read" && status.read) ||
-      (statusFilter === "favorite" && status.favorite) ||
-      (statusFilter === "wishlist" && status.wishlist);
+        (statusFilter === "read" && status.read) ||
+        (statusFilter === "favorite" && status.favorite) ||
+        (statusFilter === "wishlist" && status.wishlist);
 
     const yearStr = book.volumeInfo?.publishedDate?.slice(0, 4);
     const year = yearStr ? parseInt(yearStr) : null;
 
     const matchesYear =
       (minYear === null || (year !== null && year >= minYear)) &&
-      (maxYear === null || (year !== null && year <= maxYear));
+        (maxYear === null || (year !== null && year <= maxYear));
 
     return matchesSearch && matchesStatus && matchesYear;
   });
 
+  // Current year for filtering
+  const currentYear = new Date().getFullYear();
+
+  // Count how many books are read in the current year
+  const readThisYearCount = books.filter(
+    b =>
+      b.status.read &&
+        b.status.readDate &&
+        new Date(b.status.readDate).getFullYear() === currentYear
+  ).length;
+
+  // Count how many books are favorited
+  const favoriteCount = books.filter(b => b.status.favorite).length;
+
+  // Count how many books are wishlisted
+  const wishlistCount = books.filter(b => b.status.wishlist).length;
+
   return (
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
+
+      <div className="flex flex-col md:flex-row justify-center gap-4 mb-6 text-sm text-[var(--foreground-30)]">
+        <p>Read this year: {readThisYearCount}</p>
+        <p>Favorited: {favoriteCount}</p>
+        <p>Wishlisted: {wishlistCount}</p>
+      </div>
 
       <div className="flex flex-col md:flex-row gap-2 mb-2 justify-center">
         <input
@@ -178,10 +203,10 @@ export default function MyBooksPage() {
               )
             }
             className={`px-4 py-2 text-sm rounded-md border border-sky-700 text-sky-700 cursor-pointer transition ${
-              statusFilter === status
-                ? "bg-sky-700 text-white"
-                : "text-black hover:bg-sky-700/10"
-            }`}
+statusFilter === status
+? "bg-sky-700 text-white"
+: "text-black hover:bg-sky-700/10"
+}`}
           >
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </button>
@@ -193,8 +218,8 @@ export default function MyBooksPage() {
           Sign in to start customizing your own books list!
         </p>
       ) : loading ? (
-        <p className="my-6 text-center">Loading your books...</p>
-      ) : null}
+          <p className="my-6 text-center">Loading your books...</p>
+        ) : null}
 
       {!loading && (
         <>
@@ -211,10 +236,10 @@ export default function MyBooksPage() {
               your list!
             </p>
           ) : filteredBooks.length === 0 ? (
-            <p className="my-6 text-sm text-[var(--color)] text-center">
-              No books matched your filters.
-            </p>
-          ) : null}
+              <p className="my-6 text-sm text-[var(--color)] text-center">
+                No books matched your filters.
+              </p>
+            ) : null}
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
             {filteredBooks.map((item) => (
