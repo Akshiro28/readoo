@@ -72,13 +72,13 @@ export async function POST(req: NextRequest) {
         };
       } else {
         // unmark read without changing the date
-        update = { $set: { "status.read": false } };
+        update = { $set: { "status.read": false, uid, bookId } };
       }
     } else {
       // favorite or wishlist can toggle normally
       update = isMarked
-        ? { $set: { [`status.${statusKey}`]: false } }
-        : { $set: { [`status.${statusKey}`]: true, uid, bookId } };
+        ? { $set: { [`status.${statusKey}`]: false, uid, bookId } } // unmark
+        : { $set: { [`status.${statusKey}`]: true, uid, bookId } }; // mark
     }
 
     await collection.updateOne(filter, update, { upsert: true });

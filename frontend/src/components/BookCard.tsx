@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import { CircleCheck, Heart, Bookmark } from "lucide-react";
 import { getIdToken } from "firebase/auth";
 import { auth } from "../firebase/auth";
+import { toast } from "sonner";
 
 export type BookType = {
   id: string;
@@ -61,9 +62,10 @@ export default function BookCard({ book }: { book: BookType }) {
             setStatus(data.status);
           }
         } else {
-          console.error("Failed to fetch book status");
+          toast.error("Failed to load book status.");
         }
       } catch (error) {
+        toast.error("Error fetching book status.");
         console.error("Error fetching status:", error);
       }
     };
@@ -73,6 +75,8 @@ export default function BookCard({ book }: { book: BookType }) {
 
   async function handleMarkAs(key: keyof StatusType) {
     if (!user || !auth.currentUser) return;
+
+    const value = !status[key]; // toggle
 
     try {
       const token = await getIdToken(auth.currentUser, true);
@@ -85,17 +89,21 @@ export default function BookCard({ book }: { book: BookType }) {
         body: JSON.stringify({
           bookId: book.id,
           statusKey: key,
-          value: !status[key],
+          value,
         }),
       });
 
       if (res.ok) {
-        setStatus((prev) => ({ ...prev, [key]: !prev[key] }));
+        setStatus((prev) => ({ ...prev, [key]: value }));
+        toast.success(
+          `${value ? "Added to" : "Removed from"} ${key === "read" ? "Read" : key === "favorite" ? "Favorites" : "Wishlist"}`
+        );
       } else {
         const data = await res.json();
-        console.error("Error updating status:", data.error);
+        toast.error(data.error || "Failed to update status.");
       }
     } catch (err) {
+      toast.error("Failed to update status.");
       console.error("Failed to update book status:", err);
     }
   }
