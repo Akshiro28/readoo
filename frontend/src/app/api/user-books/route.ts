@@ -1,6 +1,6 @@
 import { getAuth } from "firebase-admin/auth";
 import { getApps, initializeApp, cert } from "firebase-admin/app";
-import { MongoClient } from "mongodb";
+import { MongoClient, UpdateFilter, Document } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 if (!getApps().length) {
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     const existing = await collection.findOne(filter);
     const isMarked = existing?.status?.[statusKey] === true;
 
-    let update: any;
+    let update: UpdateFilter<Document> = {};
 
     if (statusKey === "read") {
       if (!existing?.status?.read) {
