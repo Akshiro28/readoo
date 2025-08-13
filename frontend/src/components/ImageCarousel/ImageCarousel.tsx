@@ -27,7 +27,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
         <Carousel
           showThumbs={false}
           infiniteLoop
-          // autoPlay
+          autoPlay
           interval={5000}
           transitionTime={800}
           showStatus={false}

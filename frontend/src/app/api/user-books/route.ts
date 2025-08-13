@@ -57,25 +57,41 @@ export async function POST(req: NextRequest) {
     const existing = await collection.findOne(filter);
     const isMarked = existing?.status?.[statusKey] === true;
 
-    const update = isMarked
-      ? { $set: { [`status.${statusKey}`]: false } }
-      : {
+    let update: any;
+
+    if (statusKey === "read") {
+      if (!existing?.status?.read) {
+        // Only set read date if it's not already marked
+        update = {
           $set: {
-            [`status.${statusKey}`]: true,
+            "status.read": true,
+            "status.readDate": new Date(), // store the first read date
             uid,
             bookId,
           },
         };
+      } else {
+        // unmark read without changing the date
+        update = { $set: { "status.read": false } };
+      }
+    } else {
+      // favorite or wishlist can toggle normally
+      update = isMarked
+        ? { $set: { [`status.${statusKey}`]: false } }
+        : { $set: { [`status.${statusKey}`]: true, uid, bookId } };
+    }
 
     await collection.updateOne(filter, update, { upsert: true });
 
     const updatedDoc = await collection.findOne(filter);
+
     const allFalse =
       !updatedDoc?.status?.read &&
-      !updatedDoc?.status?.favorite &&
-      !updatedDoc?.status?.wishlist;
+        !updatedDoc?.status?.favorite &&
+        !updatedDoc?.status?.wishlist;
 
-    if (allFalse) {
+    // Only delete if there is no readDate
+    if (allFalse && !updatedDoc?.status?.readDate) {
       await collection.deleteOne(filter);
       return NextResponse.json({
         message: `${statusKey} unmarked — all statuses false, entry removed`,
@@ -86,6 +102,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       message: isMarked ? `${statusKey} unmarked` : `${statusKey} marked`,
       newStatus: !isMarked,
+      readDate: updatedDoc?.status?.readDate || null,
     });
   } catch (err: unknown) {
     const error = err instanceof Error ? err.message : String(err);
@@ -125,6 +142,7 @@ export async function GET(req: NextRequest) {
     const doc = await collection.findOne({ uid, bookId });
     const status = doc?.status || {
       read: false,
+      readDate: null,
       favorite: false,
       wishlist: false,
     };
