@@ -152,10 +152,19 @@ export default function MyBooksPage() {
     <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
 
-      <div className="flex flex-col md:flex-row justify-center gap-4 mb-6 text-sm text-[var(--foreground-30)]">
-        <p>Read this year: {readThisYearCount}</p>
-        <p>Favorited: {favoriteCount}</p>
-        <p>Wishlisted: {wishlistCount}</p>
+      <div className="flex flex-col md:flex-row justify-center gap-4 mb-6 text-sm">
+        <div className="flex-1 p-4 rounded-2xl bg-[rgba(0,166,62,0.1)] text-center">
+          <p className="font-medium">Read this year</p>
+          <p className="text-xl font-bold text-[var(--foreground)]">{readThisYearCount}</p>
+        </div>
+        <div className="flex-1 p-4 rounded-2xl bg-[rgba(251,44,54,0.1)] text-center">
+          <p className="font-medium">Favorited</p>
+          <p className="text-xl font-bold text-[var(--foreground)]">{favoriteCount}</p>
+        </div>
+        <div className="flex-1 p-4 rounded-2xl bg-[rgba(43,127,255,0.1)] text-center">
+          <p className="font-medium">Wishlisted</p>
+          <p className="text-xl font-bold text-[var(--foreground)]">{wishlistCount}</p>
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row gap-2 mb-2 justify-center">
