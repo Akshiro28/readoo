@@ -26,6 +26,7 @@
   padding-left: 4rem;
   position: relative;
   overflow: hidden;
+  max-height: 822px;
 }
 
 .overlayGroup {

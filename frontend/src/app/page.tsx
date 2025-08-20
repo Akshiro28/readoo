@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import BookshelfSvgMyBooks from '../components/BookshelfSvgMyBooks';
 import BookshelfSvgExplore from '../components/BookshelfSvgExplore';
 import { Trophy, BookOpen, Heart, Bookmark, UserPlus, Library, Search } from "lucide-react";
+import { signInWithGoogle, logOut } from "../firebase/auth";
+import { useAuth } from "../hooks/useAuth";
 
 const slides = [
   {
@@ -68,6 +70,7 @@ type Stats = {
 
 export default function Home() {
   const [stats, setStats] = useState<Stats | null>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -226,7 +229,7 @@ export default function Home() {
           </div>
 
           <Link
-            href="/myBooks"
+            href="/mybooks"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-700 hover:bg-sky-800 text-white font-medium transition"
           >
             <Trophy className="w-5 h-5" />
@@ -248,17 +251,28 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/signup"
+              href={user ? "/mybooks" : "#"}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-gray-200 text-sky-700 font-semibold transition"
+              onClick={(e) => {
+                if (!user) {
+                  e.preventDefault();
+                  signInWithGoogle();
+                }
+              }}
             >
-              <UserPlus className="w-5 h-5" />
-              Create an Account
+              {user ? (
+                <Library className="w-5 h-5" />
+              ) : (
+                  <UserPlus className="w-5 h-5" />
+                )}
+              {user ? "Go to MyBooks" : "Create an Account"}
             </Link>
+
             <Link
               href="/explore"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 font-semibold transition"
             >
-              <Library className="w-5 h-5" />
+              <Search className="w-5 h-5" />
               Explore Library
             </Link>
           </div>
