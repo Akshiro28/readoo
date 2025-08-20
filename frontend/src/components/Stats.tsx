@@ -41,7 +41,7 @@ export default function Stats({
       {/* Toggle button */}
       <button
         onClick={() => setOpen(!open)}
-        className="mx-auto flex items-center gap-2 px-4 py-2 rounded-lg text-sm hover:bg-[var(--foreground-07)] transition cursor-pointer"
+        className="mx-auto flex items-center gap-2 px-4 py-2 rounded-md text-sm hover:bg-[var(--foreground-07)] transition cursor-pointer"
       >
         Challenges {open ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
       </button>

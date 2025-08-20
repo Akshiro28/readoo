@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import BookshelfSvgMyBooks from '../components/BookshelfSvgMyBooks';
 import BookshelfSvgExplore from '../components/BookshelfSvgExplore';
+import { Trophy, BookOpen, Heart, Bookmark, UserPlus, Library, Search } from "lucide-react";
 
 const slides = [
   {
@@ -26,9 +27,10 @@ const slides = [
         </p>
         <Link
           href="/explore"
-          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
+          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
         >
-          Explore →
+          <Search className="w-5 h-5" />
+          Explore
         </Link>
       </>
     ),
@@ -46,9 +48,10 @@ const slides = [
         </p>
         <Link
           href="/mybooks"
-          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
+          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
         >
-          MyBooks →
+          <Library className="w-5 h-5" />
+          MyBooks
         </Link>
       </>
     ),
@@ -81,20 +84,20 @@ export default function Home() {
 
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <ImageCarousel slides={slides} />
 
         <div className="h-10 w-4 border border-[var(--color)] mx-auto mt-7 rounded-full py-1">
           <div className="w-2 h-2 bg-[var(--color)] mx-auto rounded-full scroll-down-ball"></div>
         </div>
-      </div>
+      </section>
 
       <div className="triangle-wrapper mt-8">
         <div className="triangle-border"></div>
         <div className="triangle-background"></div>
       </div>
 
-      <div className="bg-[var(--foreground-04-non-transparent)] pb-32 pt-8 z-1 relative">
+      <section className="bg-[var(--foreground-04-non-transparent)] pb-32 pt-8 z-1 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
           <BookshelfSvgExplore
@@ -126,9 +129,10 @@ export default function Home() {
               </p>
               <Link
                 href="/explore"
-                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
+                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
               >
-                Explore →
+                <Search className="w-4 h-4" />
+                Explore
               </Link>
             </div>
           </div>
@@ -154,9 +158,10 @@ export default function Home() {
               </p>
               <Link
                 href="/mybooks"
-                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition"
+                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
               >
-                MyBooks →
+                <Library className="w-4 h-4" />
+                MyBooks
               </Link>
             </div>
 
@@ -184,12 +189,99 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div className="triangle-wrapper">
         <div className="triangle-border-reverse"></div>
         <div className="triangle-background-reverse"></div>
       </div>
+
+      <section className="py-42">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Take on the <span className="text-sky-700">Reading Challenge</span>
+          </h2>
+
+          <p className="max-w-2xl mx-auto mb-10">
+            Clear goals, track your progress, and celebrate your reading achievements.
+            Stay consistent, stay curious, and watch your bookshelf grow!
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <FeatureCard
+              icon={<BookOpen className="w-8 h-8 text-green-600" />}
+              title="Read More"
+              desc="Stay on track with yearly reading goals"
+            />
+            <FeatureCard
+              icon={<Heart className="w-8 h-8 text-red-500" />}
+              title="Favorites"
+              desc="Collect and cherish the books you love the most"
+            />
+            <FeatureCard
+              icon={<Bookmark className="w-8 h-8 text-blue-500" />}
+              title="Wishlist"
+              desc="Never lose sight of the books you want to read next"
+            />
+          </div>
+
+          <Link
+            href="/myBooks"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-700 hover:bg-sky-800 text-white font-medium transition"
+          >
+            <Trophy className="w-5 h-5" />
+            Start Your Challenge
+          </Link>
+        </div>
+      </section>
+
+      <section className="py-20 bg-sky-700 text-white">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Start Your Reading Journey Today!
+          </h2>
+          <p className="text-white max-w-2xl mx-auto mb-10">
+            Create your myBooks profile,
+            clear challenges, and track your progress!
+            Browse a wide library of books and keep track of what you&apos;ve read, favorited, and added to your wishlist.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/signup"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-gray-200 text-sky-700 font-semibold transition"
+            >
+              <UserPlus className="w-5 h-5" />
+              Create an Account
+            </Link>
+            <Link
+              href="/explore"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 font-semibold transition"
+            >
+              <Library className="w-5 h-5" />
+              Explore Library
+            </Link>
+          </div>
+        </div>
+      </section>
     </>
   );
+
+  function FeatureCard({
+    icon,
+    title,
+    desc,
+  }: {
+      icon: React.ReactNode;
+      title: string;
+      desc: string;
+    }) {
+    return (
+      <div className="p-6 bg-[var(--foreground-04)] border border-[var(--foreground-15)] rounded-2xl transition flex flex-col items-center text-center hover:scale-104">
+        <div className="mb-3">{icon}</div>
+        <h3 className="text-lg font-semibold mb-1">{title}</h3>
+        <p className="text-sm text-[var(--foreground-70)]">{desc}</p>
+      </div>
+    );
+  }
 }
