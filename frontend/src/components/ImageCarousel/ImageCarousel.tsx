@@ -35,6 +35,7 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ slides }) => {
           selectedItem={currentIndex}
           onChange={(index) => setCurrentIndex(index)}
           showIndicators={false}
+          swipeable={false}
         >
           {slides.map((slide, idx) => (
             <div

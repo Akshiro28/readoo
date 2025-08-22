@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
         <ImageCarousel slides={slides} />
 
         <div className="h-10 w-4 border border-[var(--color)] mx-auto mt-7 rounded-full py-1">

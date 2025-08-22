@@ -33,7 +33,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] sticky top-0 backdrop-blur-md mb-16 z-40">
+    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] sticky top-0 backdrop-blur-md z-40">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 justify-between">
           <div className="absolute inset-y-0 left-0 flex sm:hidden">
@@ -163,7 +163,7 @@ pathname === link.path
                   // logged-out
                   <button
                     onClick={signInWithGoogle}
-                    className="flex items-center gap-2 ps-3 pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
+                    className="flex items-center gap-2 ps-2 md:ps-3 pe-2 md:pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
                   >
                     <Image
                       src="/images/person-placeholder.png"
@@ -172,7 +172,7 @@ pathname === link.path
                       height={24}
                       className="rounded-full"
                     />
-                    Sign in
+                    <span className="hidden sm:inline">Sign in</span>
                   </button>
                 )}
             </div>

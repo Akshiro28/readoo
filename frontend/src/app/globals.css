@@ -51,7 +51,7 @@
   --foreground-15-non-transparent: #38393b;
 }
 
-body {
+html, body {
   overflow-x: hidden;
 }
 
