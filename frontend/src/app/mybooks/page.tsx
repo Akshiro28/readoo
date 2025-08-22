@@ -177,7 +177,7 @@ export default function MyBooksPage() {
   const wishlistCount = books.filter(b => b.status.wishlist).length;
 
   return (
-    <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 mt-32">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
 
       <Stats

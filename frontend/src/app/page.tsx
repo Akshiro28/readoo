@@ -87,7 +87,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-32">
         <ImageCarousel slides={slides} />
 
         <div className="h-10 w-4 border border-[var(--color)] mx-auto mt-7 rounded-full py-1">
@@ -111,7 +111,7 @@ export default function Home() {
         />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="border border-[var(--foreground-15)] grid md:grid-cols-2 mt-12 mb-32 rounded-4xl bg-[rgb(var(--background-rgb))]">
+          <div className="border border-[var(--foreground-15)] grid md:grid-cols-2 mt-12 mb-32 rounded-3xl md:rounded-4xl bg-[rgb(var(--background-rgb))]">
             <div className="p-16 hidden md:block">
               <div className="space-y-2">
                 <GenreMarquee direction="left" />
@@ -200,7 +200,7 @@ export default function Home() {
       </div>
 
       <section className="py-32 md:py-42">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Take on the <span className="text-sky-700">Reading Challenge</span>
           </h2>
@@ -230,7 +230,7 @@ export default function Home() {
 
           <Link
             href="/mybooks"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-700 hover:bg-sky-800 text-white font-medium transition"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-700 hover:bg-sky-800 text-white font-medium transition justify-center w-full md:w-fit"
           >
             <Trophy className="w-5 h-5" />
             Start Your Challenge
@@ -239,7 +239,7 @@ export default function Home() {
       </section>
 
       <section className="py-16 md:py-20 bg-sky-700 text-white">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+        <div className="max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Start Your Reading Journey Today!
           </h2>

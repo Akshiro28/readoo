@@ -33,7 +33,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] sticky top-0 backdrop-blur-md z-40">
+    <nav className="bg-[var(--background-90)] border-b border-[var(--foreground-15)] fixed w-full top-0 backdrop-blur-md z-40">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 justify-between">
           <div className="absolute inset-y-0 left-0 flex sm:hidden">

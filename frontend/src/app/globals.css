@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xs: 32rem;
+}
+
 @font-face {
   font-family: "Lexend";
   src: url("/fonts/Lexend-Bold.ttf") format("truetype");
