@@ -183,24 +183,22 @@ pathname === link.path
       {isMobileMenuOpen && (
         <div id="mobile-menu" className="sm:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3">
-            <a
-              href="#"
-              className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
-            >
-              Dashboard
-            </a>
-            <a
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
-            >
-              Team
-            </a>
-            <a
-              href="#"
-              className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-700 hover:text-white"
-            >
-              Projects
-            </a>
+            <div className="space-y-0">
+              {links.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`flex px-3 py-2 text-md rounded transition ${
+pathname === link.path
+? "text-[var(--color)]"
+: "text-[var(--foreground-40)] hover:text-[var(--color)]"
+}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
           </div>
         </div>
       )}

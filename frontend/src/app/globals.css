@@ -114,3 +114,9 @@ body {
   transform: scale(1.02);
   z-index: 0;
 }
+
+@media only screen and (max-width: 768px) {
+  .triangle-wrapper {
+    height: 24px;
+  }
+}

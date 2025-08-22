@@ -60,8 +60,8 @@ const BookshelfSvgMyBooks: React.FC<BookshelfSvgProps> = ({ style }) => {
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative w-fit mx-auto">
-      <div className="flex gap-8 absolute left-1/2 -translate-x-[50%]" style={{ top: `calc(0.08 * ${viewWidth}px)` }}>
+    <div ref={wrapperRef} className="relative w-fit mx-auto scale-50`">
+      <div className="flex gap-8 absolute left-1/2 -translate-x-[50%] text-sm md:text-base" style={{ top: `calc(0.08 * ${viewWidth}px)` }}>
         <div className="flex gap-2 items-center book-label">
           <div className="w-2 h-2 bg-[#00a63e] rounded-[99px]" />
           <p className="text-[#00a63e]">Read</p>

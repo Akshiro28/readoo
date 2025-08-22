@@ -23,15 +23,15 @@ const slides = [
     heading: "Discover Your Next Read",
     text: (
       <>
-        <p className="text-lg mb-6">
+        <p className="mb-6">
           Search, filter, and sort through a wide library to find your next
           great read!
         </p>
         <Link
           href="/explore"
-          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
+          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2 w-full md:w-fit justify-center"
         >
-          <Search className="w-5 h-5" />
+          <Search className="w-4 h-4 md:w-5 md:h-5" />
           Explore
         </Link>
       </>
@@ -44,15 +44,15 @@ const slides = [
     heading: "Your Personal Book List",
     text: (
       <>
-        <p className="text-lg mb-6">
+        <p className="mb-6">
           Track books you&apos;ve read, save favourites, and curate your own
           library
         </p>
         <Link
           href="/mybooks"
-          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
+          className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2 w-full md:w-fit justify-center"
         >
-          <Library className="w-5 h-5" />
+          <Library className="w-4 h-4 md:w-5 md:h-5" />
           MyBooks
         </Link>
       </>
@@ -101,18 +101,18 @@ export default function Home() {
       </div>
 
       <section className="bg-[var(--foreground-04-non-transparent)] pb-32 pt-8 z-1 relative">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <BookshelfSvgExplore
+          style={{
+            width: '80vw',
+            maxWidth: '400px',
+            display: 'block',
+            margin: '0 auto',
+          }}
+        />
 
-          <BookshelfSvgExplore
-            style={{
-              width: '100vw',
-              maxWidth: '400px',
-              display: 'block',
-              margin: '0 auto',
-            }}
-          />
-          <div className="border border-[var(--foreground-15)] grid grid-cols-2 mt-12 mb-32 rounded-4xl bg-[rgb(var(--background-rgb))]">
-            <div className="p-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="border border-[var(--foreground-15)] grid md:grid-cols-2 mt-12 mb-32 rounded-4xl bg-[rgb(var(--background-rgb))]">
+            <div className="p-16 hidden md:block">
               <div className="space-y-2">
                 <GenreMarquee direction="left" />
                 <GenreMarquee direction="right" />
@@ -123,7 +123,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="p-16 border-l border-[var(--foreground-15)]">
+            <div className="p-10 md:p-16 md:border-l md:border-[var(--foreground-15)]">
               <h2 className="text-3xl font-semibold mb-4">
                 Discover Your Next Read
               </h2>
@@ -132,7 +132,7 @@ export default function Home() {
               </p>
               <Link
                 href="/explore"
-                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
+                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2 w-full justify-center md:w-fit"
               >
                 <Search className="w-4 h-4" />
                 Explore
@@ -143,7 +143,7 @@ export default function Home() {
 
         <BookshelfSvgMyBooks
           style={{
-            width: '100vw',
+            width: '80vw',
             maxWidth: '400px',
             display: 'block',
             margin: '0 auto',
@@ -151,8 +151,8 @@ export default function Home() {
         />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-[rgb(var(--background-rgb))] mt-12 border border-[var(--foreground-15)] grid grid-cols-2 rounded-4xl">
-            <div className="p-16">
+          <div className="bg-[rgb(var(--background-rgb))] mt-12 border border-[var(--foreground-15)] grid md:grid-cols-2 rounded-4xl">
+            <div className="p-10 md:p-16">
               <h2 className="text-3xl font-semibold mb-4">
                 Curate your personal books list
               </h2>
@@ -161,14 +161,14 @@ export default function Home() {
               </p>
               <Link
                 href="/mybooks"
-                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2"
+                className="px-4 py-2 rounded bg-sky-700 text-white hover:bg-sky-800 transition inline-flex items-center gap-2 w-full justify-center md:w-fit"
               >
                 <Library className="w-4 h-4" />
                 MyBooks
               </Link>
             </div>
 
-            <div className="border-l border-[var(--foreground-15)] flex flex-col">
+            <div className="border-l border-[var(--foreground-15)] flex flex-col hidden md:block">
               <div className="p-16 flex-1 flex items-center justify-between text-3xl font-semibold before:content-['→']">
                 <div className="text-end">
                   <p>{stats?.totalUsers ?? "—"}</p>
@@ -199,7 +199,7 @@ export default function Home() {
         <div className="triangle-background-reverse"></div>
       </div>
 
-      <section className="py-42">
+      <section className="py-32 md:py-42">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Take on the <span className="text-sky-700">Reading Challenge</span>
@@ -210,7 +210,7 @@ export default function Home() {
             Stay consistent, stay curious, and watch your bookshelf grow!
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
             <FeatureCard
               icon={<BookOpen className="w-8 h-8 text-green-600" />}
               title="Read More"
@@ -238,7 +238,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 bg-sky-700 text-white">
+      <section className="py-16 md:py-20 bg-sky-700 text-white">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Start Your Reading Journey Today!
@@ -252,7 +252,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href={user ? "/mybooks" : "#"}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-gray-200 text-sky-700 font-semibold transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white hover:bg-gray-200 text-sky-700 font-semibold transition justify-center"
               onClick={(e) => {
                 if (!user) {
                   e.preventDefault();
@@ -270,7 +270,7 @@ export default function Home() {
 
             <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 font-semibold transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 font-semibold transition justify-center"
             >
               <Search className="w-5 h-5" />
               Explore Library

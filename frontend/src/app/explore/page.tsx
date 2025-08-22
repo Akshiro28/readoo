@@ -281,8 +281,8 @@ finalQuery
           <option value="title-desc">Title (Z–A)</option>
           <option value="author-asc">Author (A–Z)</option>
           <option value="author-desc">Author (Z–A)</option>
-          <option value="year-asc">Year (Newest First)</option>
-          <option value="year-desc">Year (Oldest First)</option>
+          <option value="year-desc">Year (Newest First)</option>
+          <option value="year-asc">Year (Oldest First)</option>
         </select>
       </div>
 
