@@ -177,7 +177,7 @@ export default function MyBooksPage() {
   const wishlistCount = books.filter(b => b.status.wishlist).length;
 
   return (
-    <main className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 mt-32">
+    <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-32">
       <h1 className="text-4xl font-bold mb-8 text-center">My Books</h1>
 
       <Stats
@@ -202,36 +202,39 @@ export default function MyBooksPage() {
           onChange={(e) => setSearchAuthor(e.target.value)}
           className="px-4 py-2 border rounded-md w-full md:w-1/3 border-[var(--foreground-15)] outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
         />
-
-        <input
-          type="number"
-          placeholder="Min year"
-          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
-          onChange={(e) =>
-            setMinYear(e.target.value ? parseInt(e.target.value) : null)
-          }
-        />
-        <input
-          type="number"
-          placeholder="Max year"
-          className="w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
-          onChange={(e) =>
-            setMaxYear(e.target.value ? parseInt(e.target.value) : null)
-          }
-        />
-        <select
-          value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
-          className="px-3 py-2 border border-[var(--foreground-15)] rounded-md ml-auto outline-none focus:ring-0 focus:border-[var(--foreground-30)]"
-        >
-          <option value="">Sort By</option>
-          <option value="title-asc">Title (A–Z)</option>
-          <option value="title-desc">Title (Z–A)</option>
-          <option value="author-asc">Author (A–Z)</option>
-          <option value="author-desc">Author (Z–A)</option>
-          <option value="year-desc">Year (Newest First)</option>
-          <option value="year-asc">Year (Oldest First)</option>
-        </select>
+        <div className="flex flex-col xs:flex-row gap-2 w-full md:flex-1 justify-center">
+          <div className="flex gap-2 justify-center flex-1 xs:flex-0">
+            <input
+              type="number"
+              placeholder="Min year"
+              className="w-1/2 xs:w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
+              onChange={(e) =>
+                setMinYear(e.target.value ? parseInt(e.target.value) : null)
+              }
+            />
+            <input
+              type="number"
+              placeholder="Max year"
+              className="w-1/2 xs:w-32 px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
+              onChange={(e) =>
+                setMaxYear(e.target.value ? parseInt(e.target.value) : null)
+              }
+            />
+          </div>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="px-3 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)] placeholder:text-[var(--foreground-30)]"
+          >
+            <option value="">Sort By</option>
+            <option value="title-asc">Title (A–Z)</option>
+            <option value="title-desc">Title (Z–A)</option>
+            <option value="author-asc">Author (A–Z)</option>
+            <option value="author-desc">Author (Z–A)</option>
+            <option value="year-desc">Year (Newest First)</option>
+            <option value="year-asc">Year (Oldest First)</option>
+          </select>
+        </div>
       </div>
 
       <div className="flex gap-2 items-center overflow-x-auto justify-center">
@@ -282,7 +285,7 @@ statusFilter === status
               </p>
             ) : null}
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 xs:gap-8 md:gap-12">
             {sortedBooks.map((item) => (
               <BookCard key={item.id} book={item} />
             ))}

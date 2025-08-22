@@ -17,20 +17,20 @@ export default function Stats({
   return (
     <div className="mb-6">
       {/* Stats summary */}
-      <div className="flex flex-col md:flex-row justify-center gap-4 mb-4 text-sm">
-        <div className="flex-1 p-4 rounded-xl bg-[rgba(0,166,62,0.1)] text-center">
-          <p className="font-medium">Read this year</p>
+      <div className="flex flex-col flex-row justify-center gap-2 xs:gap-4 mb-4 text-sm">
+        <div className="flex-1 p-2 xs:p-4 rounded-xl bg-[rgba(0,166,62,0.1)] text-center">
+          <p className="font-medium">Read</p>
           <p className="text-xl font-bold text-[var(--foreground)]">
             {readThisYearCount}
           </p>
         </div>
-        <div className="flex-1 p-4 rounded-xl bg-[rgba(251,44,54,0.1)] text-center">
+        <div className="flex-1 p-2 xs:p-4 rounded-xl bg-[rgba(251,44,54,0.1)] text-center">
           <p className="font-medium">Favorited</p>
           <p className="text-xl font-bold text-[var(--foreground)]">
             {favoriteCount}
           </p>
         </div>
-        <div className="flex-1 p-4 rounded-xl bg-[rgba(43,127,255,0.1)] text-center">
+        <div className="flex-1 p-2 xs:p-4 rounded-xl bg-[rgba(43,127,255,0.1)] text-center">
           <p className="font-medium">Wishlisted</p>
           <p className="text-xl font-bold text-[var(--foreground)]">
             {wishlistCount}
