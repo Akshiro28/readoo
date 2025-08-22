@@ -26,6 +26,7 @@ export default function Explore() {
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
   const [isRecommendation, setIsRecommendation] = useState(false);
+  const [sortOption, setSortOption] = useState("");
 
   useEffect(() => {
     const timeout = setTimeout(() => setDebouncedQuery(query), 500);
@@ -171,8 +172,8 @@ export default function Explore() {
 
         const res = await fetch(
           `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
-            finalQuery
-          )}&maxResults=30`
+finalQuery
+)}&maxResults=30`
         );
         const data = await res.json();
 
@@ -201,6 +202,38 @@ export default function Explore() {
     if (minYear && year < minYear) return false;
     if (maxYear && year > maxYear) return false;
     return true;
+  });
+
+  const sortedBooks = [...filteredBooks].sort((a, b) => {
+    const infoA = a.volumeInfo || {};
+    const infoB = b.volumeInfo || {};
+
+    switch (sortOption) {
+      case "title-asc":
+        return (infoA.title || "").localeCompare(infoB.title || "");
+      case "title-desc":
+        return (infoB.title || "").localeCompare(infoA.title || "");
+      case "author-asc":
+        return (infoA.authors?.[0] || "").localeCompare(
+          infoB.authors?.[0] || ""
+        );
+      case "author-desc":
+        return (infoB.authors?.[0] || "").localeCompare(
+          infoA.authors?.[0] || ""
+        );
+      case "year-asc":
+        return (
+          parseInt(infoA.publishedDate?.slice(0, 4) || "0") -
+            parseInt(infoB.publishedDate?.slice(0, 4) || "0")
+        );
+      case "year-desc":
+        return (
+          parseInt(infoB.publishedDate?.slice(0, 4) || "0") -
+            parseInt(infoA.publishedDate?.slice(0, 4) || "0")
+        );
+      default:
+        return 0;
+    }
   });
 
   return (
@@ -238,6 +271,19 @@ export default function Explore() {
             setMaxYear(e.target.value ? parseInt(e.target.value) : null)
           }
         />
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="px-4 py-2 border border-[var(--foreground-15)] rounded outline-none focus:ring-0 focus:border-[var(--foreground-30)]"
+        >
+          <option value="">Sort By</option>
+          <option value="title-asc">Title (A–Z)</option>
+          <option value="title-desc">Title (Z–A)</option>
+          <option value="author-asc">Author (A–Z)</option>
+          <option value="author-desc">Author (Z–A)</option>
+          <option value="year-asc">Year (Newest First)</option>
+          <option value="year-desc">Year (Oldest First)</option>
+        </select>
       </div>
 
       {loading && <p className="my-6 text-center">Loading books...</p>}
@@ -247,8 +293,8 @@ export default function Explore() {
           {isRecommendation
             ? "Recommended Books"
             : `Showing ${filteredBooks.length} result${
-                filteredBooks.length !== 1 ? "s" : ""
-              }`}
+filteredBooks.length !== 1 ? "s" : ""
+}`}
         </p>
       )}
 
@@ -259,7 +305,7 @@ export default function Explore() {
       )}
 
       <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
-        {filteredBooks.map((item) => (
+        {sortedBooks.map((item) => (
           <BookCard key={item.id} book={item} />
         ))}
       </div>

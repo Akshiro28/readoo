@@ -50,6 +50,7 @@ export default function MyBooksPage() {
 >("all");
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
+  const [sortOption, setSortOption] = useState("");
 
   useEffect(() => {
     if (!user) return;
@@ -132,6 +133,32 @@ export default function MyBooksPage() {
     return matchesSearch && matchesStatus && matchesYear;
   });
 
+  const sortedBooks = [...filteredBooks].sort((a, b) => {
+    const titleA = a.volumeInfo.title || "";
+    const titleB = b.volumeInfo.title || "";
+    const authorA = a.volumeInfo.authors?.[0] || "";
+    const authorB = b.volumeInfo.authors?.[0] || "";
+    const yearA = a.volumeInfo.publishedDate || "";
+    const yearB = b.volumeInfo.publishedDate || "";
+
+    switch (sortOption) {
+      case "title-asc":
+        return titleA.localeCompare(titleB);
+      case "title-desc":
+        return titleB.localeCompare(titleA);
+      case "author-asc":
+        return authorA.localeCompare(authorB);
+      case "author-desc":
+        return authorB.localeCompare(authorA);
+      case "year-asc":
+        return yearA.localeCompare(yearB); // oldest first
+      case "year-desc":
+        return yearB.localeCompare(yearA); // newest first
+      default:
+        return 0;
+    }
+  });
+
   // Current year for filtering
   const currentYear = new Date().getFullYear();
 
@@ -192,6 +219,19 @@ export default function MyBooksPage() {
             setMaxYear(e.target.value ? parseInt(e.target.value) : null)
           }
         />
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="px-3 py-2 border border-[var(--foreground-15)] rounded-md ml-auto outline-none focus:ring-0 focus:border-[var(--foreground-30)]"
+        >
+          <option value="">Sort By</option>
+          <option value="title-asc">Title (A–Z)</option>
+          <option value="title-desc">Title (Z–A)</option>
+          <option value="author-asc">Author (A–Z)</option>
+          <option value="author-desc">Author (Z–A)</option>
+          <option value="year-desc">Year (Newest First)</option>
+          <option value="year-asc">Year (Oldest First)</option>
+        </select>
       </div>
 
       <div className="flex gap-2 items-center overflow-x-auto justify-center">
@@ -243,7 +283,7 @@ statusFilter === status
             ) : null}
 
           <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
-            {filteredBooks.map((item) => (
+            {sortedBooks.map((item) => (
               <BookCard key={item.id} book={item} />
             ))}
           </div>
