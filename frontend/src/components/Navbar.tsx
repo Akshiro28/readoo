@@ -60,20 +60,20 @@ export default function Navbar() {
                   />
                 </svg>
               ) : (
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="block size-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path
-                      d="M6 18L18 6M6 6l12 12"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                )}
+                <svg
+                  viewBox="0 0 24 24"
+                  className="block size-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              )}
             </button>
           </div>
 
@@ -95,10 +95,10 @@ export default function Navbar() {
                     key={link.path}
                     href={link.path}
                     className={`flex px-3 py-2 text-sm rounded transition ${
-pathname === link.path
-? "text-[var(--color)]"
-: "text-[var(--foreground-40)] hover:text-[var(--color)]"
-}`}
+                      pathname === link.path
+                        ? "text-[var(--color)]"
+                        : "text-[var(--foreground-40)] hover:text-[var(--color)]"
+                    }`}
                   >
                     {link.name}
                   </Link>
@@ -137,7 +137,7 @@ pathname === link.path
                       <a
                         id="user-menu-item-0"
                         role="menuitem"
-                        href="#"
+                        href="mybooks"
                         tabIndex={0}
                         className="block px-4 py-2 text-sm text-[var(--color)] hover:bg-[var(--foreground-07)] transition"
                         onClick={() => setUserMenuOpen(false)}
@@ -160,21 +160,21 @@ pathname === link.path
                   )}
                 </>
               ) : (
-                  // logged-out
-                  <button
-                    onClick={signInWithGoogle}
-                    className="flex items-center gap-2 ps-2 md:ps-3 pe-2 md:pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
-                  >
-                    <Image
-                      src="/images/person-placeholder.png"
-                      alt="Default Avatar"
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
-                    <span className="hidden sm:inline">Sign in</span>
-                  </button>
-                )}
+                // logged-out
+                <button
+                  onClick={signInWithGoogle}
+                  className="flex items-center gap-2 ps-2 md:ps-3 pe-2 md:pe-4 py-2 bg-sky-700 text-white text-sm rounded hover:bg-sky-800 cursor-pointer"
+                >
+                  <Image
+                    src="/images/person-placeholder.png"
+                    alt="Default Avatar"
+                    width={24}
+                    height={24}
+                    className="rounded-full"
+                  />
+                  <span className="hidden sm:inline">Sign in</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -189,16 +189,15 @@ pathname === link.path
                   key={link.path}
                   href={link.path}
                   className={`flex px-3 py-2 text-md rounded transition ${
-pathname === link.path
-? "text-[var(--color)]"
-: "text-[var(--foreground-40)] hover:text-[var(--color)]"
-}`}
+                    pathname === link.path
+                      ? "text-[var(--color)]"
+                      : "text-[var(--foreground-40)] hover:text-[var(--color)]"
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
             </div>
-
           </div>
         </div>
       )}

@@ -4,9 +4,17 @@ import ImageCarousel from "../components/ImageCarousel/ImageCarousel";
 import GenreMarquee from "../components/GenreMarquee/GenreMarquee";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import BookshelfSvgMyBooks from '../components/BookshelfSvgMyBooks';
-import BookshelfSvgExplore from '../components/BookshelfSvgExplore';
-import { Trophy, BookOpen, Heart, Bookmark, UserPlus, Library, Search } from "lucide-react";
+import BookshelfSvgMyBooks from "../components/BookshelfSvgMyBooks";
+import BookshelfSvgExplore from "../components/BookshelfSvgExplore";
+import {
+  Trophy,
+  BookOpen,
+  Heart,
+  Bookmark,
+  UserPlus,
+  Library,
+  Search,
+} from "lucide-react";
 import { signInWithGoogle, logOut } from "../firebase/auth";
 import { useAuth } from "../hooks/useAuth";
 
@@ -103,10 +111,10 @@ export default function Home() {
       <section className="bg-[var(--foreground-04-non-transparent)] pb-32 pt-8 z-1 relative">
         <BookshelfSvgExplore
           style={{
-            width: '80vw',
-            maxWidth: '400px',
-            display: 'block',
-            margin: '0 auto',
+            width: "80vw",
+            maxWidth: "400px",
+            display: "block",
+            margin: "0 auto",
           }}
         />
 
@@ -128,7 +136,10 @@ export default function Home() {
                 Discover Your Next Read
               </h2>
               <p className="mb-6">
-                Dive into a rich collection of books across every genre and interest! Whether you&apos;re looking for trending titles, hidden gems, or timeless classics, our database has it all listed and ready to explore.
+                Dive into a rich collection of books across every genre and
+                interest! Whether you&apos;re looking for trending titles,
+                hidden gems, or timeless classics, our database has it all
+                listed and ready to explore.
               </p>
               <Link
                 href="/explore"
@@ -143,10 +154,10 @@ export default function Home() {
 
         <BookshelfSvgMyBooks
           style={{
-            width: '80vw',
-            maxWidth: '400px',
-            display: 'block',
-            margin: '0 auto',
+            width: "80vw",
+            maxWidth: "400px",
+            display: "block",
+            margin: "0 auto",
           }}
         />
 
@@ -157,7 +168,10 @@ export default function Home() {
                 Curate your personal books list
               </h2>
               <p className="mb-6">
-                Build your own personal bookshelf with ease. Keep track of what you’ve read, save your favorite titles, and organize books the way you like. Whether you’re a casual reader or a dedicated bookworm, your curated library is always just a click away.
+                Build your own personal bookshelf with ease. Keep track of what
+                you’ve read, save your favorite titles, and organize books the
+                way you like. Whether you’re a casual reader or a dedicated
+                bookworm, your curated library is always just a click away.
               </p>
               <Link
                 href="/mybooks"
@@ -168,7 +182,7 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="border-l border-[var(--foreground-15)] flex flex-col hidden md:block">
+            <div className="border-l border-[var(--foreground-15)] flex-col hidden md:block">
               <div className="p-16 flex-1 flex items-center justify-between text-3xl font-semibold before:content-['→']">
                 <div className="text-end">
                   <p>{stats?.totalUsers ?? "—"}</p>
@@ -206,8 +220,9 @@ export default function Home() {
           </h2>
 
           <p className="max-w-2xl mx-auto mb-10">
-            Clear goals, track your progress, and celebrate your reading achievements.
-            Stay consistent, stay curious, and watch your bookshelf grow!
+            Clear goals, track your progress, and celebrate your reading
+            achievements. Stay consistent, stay curious, and watch your
+            bookshelf grow!
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-12">
@@ -244,9 +259,9 @@ export default function Home() {
             Start Your Reading Journey Today!
           </h2>
           <p className="text-white max-w-2xl mx-auto mb-10">
-            Create your myBooks profile,
-            clear challenges, and track your progress!
-            Browse a wide library of books and keep track of what you&apos;ve read, favorited, and added to your wishlist.
+            Create your myBooks profile, clear challenges, and track your
+            progress! Browse a wide library of books and keep track of what
+            you&apos;ve read, favorited, and added to your wishlist.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -263,8 +278,8 @@ export default function Home() {
               {user ? (
                 <Library className="w-5 h-5" />
               ) : (
-                  <UserPlus className="w-5 h-5" />
-                )}
+                <UserPlus className="w-5 h-5" />
+              )}
               {user ? "Go to MyBooks" : "Create an Account"}
             </Link>
 
@@ -286,10 +301,10 @@ export default function Home() {
     title,
     desc,
   }: {
-      icon: React.ReactNode;
-      title: string;
-      desc: string;
-    }) {
+    icon: React.ReactNode;
+    title: string;
+    desc: string;
+  }) {
     return (
       <div className="p-6 bg-[var(--foreground-04)] border border-[var(--foreground-15)] rounded-2xl transition flex flex-col items-center text-center hover:scale-104">
         <div className="mb-3">{icon}</div>
