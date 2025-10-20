@@ -51,6 +51,8 @@ export default function MyBooksPage() {
   const [minYear, setMinYear] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
   const [sortOption, setSortOption] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 15;
 
   useEffect(() => {
     if (!user) return;
@@ -158,6 +160,19 @@ export default function MyBooksPage() {
         return 0;
     }
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTitle, searchAuthor, statusFilter, minYear, maxYear, sortOption]);
+
+
+  const totalPages = Math.ceil(sortedBooks.length / itemsPerPage);
+
+  const currentBooks = sortedBooks.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
 
   // Current year for filtering
   const currentYear = new Date().getFullYear();
@@ -286,10 +301,44 @@ statusFilter === status
             ) : null}
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 xs:gap-8 md:gap-12">
-            {sortedBooks.map((item) => (
+            {currentBooks.map((item) => (
               <BookCard key={item.id} book={item} />
             ))}
           </div>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-8 gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
+              >
+                Prev
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`px-3 py-1 border rounded transition cursor-pointer ${
+                    currentPage === i + 1
+                      ? "bg-[var(--foreground-10)] font-semibold"
+                      : ""
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </>
       )}
     </main>
